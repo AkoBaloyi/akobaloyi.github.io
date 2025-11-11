@@ -178,28 +178,54 @@ setInterval(rotateQuote, 4000);
 
 // ===== Contact Form =====
 const contactForm = document.querySelector('.contact-form');
+const formStatus = document.querySelector('.form-status');
 
-contactForm.addEventListener('submit', (e) => {
+contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    const formData = new FormData(contactForm);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const message = formData.get('message');
+    const submitButton = contactForm.querySelector('.submit-button');
+    const originalText = submitButton.textContent;
     
-    // Create mailto link
-    const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-    const mailtoLink = `mailto:Akobaloyi01@gmail.com?subject=${subject}&body=${body}`;
+    // Show loading state
+    submitButton.textContent = 'Sending...';
+    submitButton.disabled = true;
     
-    // Open email client
-    window.location.href = mailtoLink;
+    try {
+        const formData = new FormData(contactForm);
+        const response = await fetch(contactForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+        
+        if (response.ok) {
+            // Success
+            formStatus.textContent = 'Message sent successfully! I\'ll get back to you soon.';
+            formStatus.style.display = 'block';
+            formStatus.style.color = '#4ade80';
+            contactForm.reset();
+        } else {
+            // Error
+            formStatus.textContent = 'Oops! Something went wrong. Please email me directly at Akobaloyi01@gmail.com';
+            formStatus.style.display = 'block';
+            formStatus.style.color = '#ff6b6b';
+        }
+    } catch (error) {
+        formStatus.textContent = 'Network error. Please email me directly at Akobaloyi01@gmail.com';
+        formStatus.style.display = 'block';
+        formStatus.style.color = '#ff6b6b';
+    }
     
-    // Show success message
+    // Reset button
+    submitButton.textContent = originalText;
+    submitButton.disabled = false;
+    
+    // Hide status after 5 seconds
     setTimeout(() => {
-        alert(`Thank you, ${name}! Your email client should open. If not, please email me directly at Akobaloyi01@gmail.com`);
-        contactForm.reset();
-    }, 500);
+        formStatus.style.display = 'none';
+    }, 5000);
 });
 
 // ===== Easter Egg =====
