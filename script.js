@@ -282,7 +282,89 @@ window.addEventListener('scroll', () => {
     });
 });
 
+// ===== Hero Typing Animation =====
+const heroTitle = document.querySelector('.hero h1');
+const originalText = heroTitle.textContent;
+let typingComplete = false;
+
+function typeWriter(element, text, speed = 100) {
+    element.textContent = '';
+    element.style.opacity = '1';
+    let i = 0;
+    
+    function type() {
+        if (i < text.length) {
+            element.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+        } else {
+            typingComplete = true;
+        }
+    }
+    
+    type();
+}
+
+// Start typing after loading screen
+setTimeout(() => {
+    typeWriter(heroTitle, originalText, 80);
+}, 1800);
+
+// ===== Konami Code Easter Egg =====
+const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+let konamiIndex = 0;
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        
+        if (konamiIndex === konamiCode.length) {
+            activateKonamiEasterEgg();
+            konamiIndex = 0;
+        }
+    } else {
+        konamiIndex = 0;
+    }
+});
+
+function activateKonamiEasterEgg() {
+    // Create special effect
+    document.body.style.animation = 'rainbow 2s ease-in-out';
+    
+    // Show special message
+    const message = document.createElement('div');
+    message.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(108, 99, 255, 0.95);
+        color: white;
+        padding: 3rem;
+        border-radius: 20px;
+        font-size: 1.5rem;
+        text-align: center;
+        z-index: 10000;
+        box-shadow: 0 0 50px rgba(108, 99, 255, 0.8);
+        animation: fadeInUp 0.5s ease-out;
+    `;
+    message.innerHTML = `
+        <h2 style="margin-bottom: 1rem;">🎮 Code Unlocked!</h2>
+        <p>"The best systems are built by those who explore them."</p>
+    `;
+    
+    document.body.appendChild(message);
+    
+    setTimeout(() => {
+        message.style.opacity = '0';
+        message.style.transform = 'translate(-50%, -50%) scale(0.8)';
+        message.style.transition = 'all 0.5s ease';
+        setTimeout(() => message.remove(), 500);
+    }, 3000);
+}
+
 // ===== Console Easter Egg =====
 console.log('%c👋 Hello, curious developer!', 'color: #6C63FF; font-size: 20px; font-weight: bold;');
 console.log('%cI see you\'re checking under the hood. I like that.', 'color: #70E0FF; font-size: 14px;');
 console.log('%cFeel free to reach out if you want to build something together.', 'color: #E0E0E0; font-size: 12px;');
+console.log('%c💡 Tip: Try the Konami Code (↑↑↓↓←→←→BA)', 'color: #6C63FF; font-size: 12px; font-style: italic;');
