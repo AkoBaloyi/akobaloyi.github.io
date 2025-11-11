@@ -180,52 +180,38 @@ setInterval(rotateQuote, 4000);
 const contactForm = document.querySelector('.contact-form');
 const formStatus = document.querySelector('.form-status');
 
-contactForm.addEventListener('submit', async (e) => {
+contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
     
-    const submitButton = contactForm.querySelector('.submit-button');
-    const originalText = submitButton.textContent;
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
     
-    // Show loading state
-    submitButton.textContent = 'Sending...';
-    submitButton.disabled = true;
+    // Create mailto link with form data
+    const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
+    const body = encodeURIComponent(
+        `Name: ${name}\n` +
+        `Email: ${email}\n\n` +
+        `Message:\n${message}\n\n` +
+        `---\n` +
+        `Sent from akobaloyi.github.io`
+    );
     
-    try {
-        const formData = new FormData(contactForm);
-        const response = await fetch(contactForm.action, {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
-        
-        if (response.ok) {
-            // Success
-            formStatus.textContent = 'Message sent successfully! I\'ll get back to you soon.';
-            formStatus.style.display = 'block';
-            formStatus.style.color = '#4ade80';
-            contactForm.reset();
-        } else {
-            // Error
-            formStatus.textContent = 'Oops! Something went wrong. Please email me directly at Akobaloyi01@gmail.com';
-            formStatus.style.display = 'block';
-            formStatus.style.color = '#ff6b6b';
-        }
-    } catch (error) {
-        formStatus.textContent = 'Network error. Please email me directly at Akobaloyi01@gmail.com';
-        formStatus.style.display = 'block';
-        formStatus.style.color = '#ff6b6b';
-    }
+    const mailtoLink = `mailto:Akobaloyi01@gmail.com?subject=${subject}&body=${body}`;
     
-    // Reset button
-    submitButton.textContent = originalText;
-    submitButton.disabled = false;
+    // Open email client
+    window.location.href = mailtoLink;
     
-    // Hide status after 5 seconds
+    // Show success message
+    formStatus.textContent = 'Opening your email client... If it doesn\'t open, please email me directly.';
+    formStatus.style.display = 'block';
+    formStatus.style.color = '#4ade80';
+    
+    // Reset form after a delay
     setTimeout(() => {
+        contactForm.reset();
         formStatus.style.display = 'none';
-    }, 5000);
+    }, 3000);
 });
 
 // ===== Easter Egg =====
