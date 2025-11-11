@@ -176,7 +176,61 @@ quoteElement.textContent = quotes[0];
 // Rotate quotes every 4 seconds
 setInterval(rotateQuote, 4000);
 
-// Contact form removed - using direct contact methods instead
+// ===== Contact Form with AJAX =====
+const contactForm = document.getElementById("contact-form");
+
+if (contactForm) {
+    async function handleSubmit(event) {
+        event.preventDefault();
+        
+        const status = document.getElementById("form-status");
+        const submitButton = document.getElementById("submit-button");
+        const originalText = submitButton.textContent;
+        
+        // Show loading state
+        submitButton.textContent = "Sending...";
+        submitButton.disabled = true;
+        status.style.display = "none";
+        
+        const data = new FormData(event.target);
+        
+        try {
+            const response = await fetch(event.target.action, {
+                method: contactForm.method,
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (response.ok) {
+                status.innerHTML = "Thanks for your message! I'll get back to you soon.";
+                status.style.color = "#4ade80";
+                status.style.display = "block";
+                contactForm.reset();
+            } else {
+                const responseData = await response.json();
+                if (responseData.errors) {
+                    status.innerHTML = responseData.errors.map(error => error.message).join(", ");
+                } else {
+                    status.innerHTML = "Oops! There was a problem submitting your form";
+                }
+                status.style.color = "#ff6b6b";
+                status.style.display = "block";
+            }
+        } catch (error) {
+            status.innerHTML = "Oops! There was a problem submitting your form";
+            status.style.color = "#ff6b6b";
+            status.style.display = "block";
+        }
+        
+        // Reset button
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+    }
+    
+    contactForm.addEventListener("submit", handleSubmit);
+}
 
 // ===== Easter Egg =====
 const easterEgg = document.querySelector('.easter-egg');

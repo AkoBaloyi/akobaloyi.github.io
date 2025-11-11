@@ -278,12 +278,12 @@
                 <h3>For Collaborators</h3>
                 <p>I like working with people who think deeply and build with intention. If that sounds like you, reach out.</p>
             </div>
-            <form class="contact-form fade-in" action="https://formspree.io/f/mvgdoddv" method="POST">
-                <input type="hidden" name="_subject" value="New message from Portfolio">
+            <form class="contact-form fade-in" id="contact-form" action="https://formspree.io/f/mvgdoddv" method="POST">
                 <input type="text" name="name" placeholder="Name" required>
                 <input type="email" name="email" placeholder="Your Email" required>
                 <textarea name="message" rows="5" placeholder="Let's build something meaningful" required></textarea>
-                <button type="submit" class="submit-button">Send Message</button>
+                <button type="submit" class="submit-button" id="submit-button">Send Message</button>
+                <p id="form-status" style="display: none; text-align: center; margin-top: 1rem; font-weight: 500;"></p>
             </form>
             <p class="form-note fade-in" style="text-align: center; color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">
                 Having trouble? Email me directly at <a href="mailto:Akobaloyi01@gmail.com" style="color: var(--accent-violet);">Akobaloyi01@gmail.com</a>
