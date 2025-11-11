@@ -150,9 +150,11 @@ document.querySelectorAll('.fade-in').forEach(el => {
 
 // ===== Rotating Quotes =====
 const quotes = [
-    "Success isn't luxury — it's peace.",
-    "Understanding is more powerful than speed.",
-    "Discipline builds freedom."
+    "Success isn't luxury, it's peace",
+    "Understanding is more powerful than speed",
+    "Discipline builds freedom",
+    "Curiosity before certainty",
+    "Build systems that outlast you"
 ];
 
 let currentQuoteIndex = 0;
@@ -185,11 +187,19 @@ contactForm.addEventListener('submit', (e) => {
     const email = formData.get('email');
     const message = formData.get('message');
     
-    // Here you would typically send the data to a server
-    // For now, we'll just show a success message
-    alert(`Thank you, ${name}! Your message has been received. I'll get back to you at ${email} soon.`);
+    // Create mailto link
+    const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+    const mailtoLink = `mailto:Akobaloyi01@gmail.com?subject=${subject}&body=${body}`;
     
-    contactForm.reset();
+    // Open email client
+    window.location.href = mailtoLink;
+    
+    // Show success message
+    setTimeout(() => {
+        alert(`Thank you, ${name}! Your email client should open. If not, please email me directly at Akobaloyi01@gmail.com`);
+        contactForm.reset();
+    }, 500);
 });
 
 // ===== Easter Egg =====
