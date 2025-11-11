@@ -176,43 +176,7 @@ quoteElement.textContent = quotes[0];
 // Rotate quotes every 4 seconds
 setInterval(rotateQuote, 4000);
 
-// ===== Contact Form =====
-const contactForm = document.querySelector('.contact-form');
-const formStatus = document.querySelector('.form-status');
-
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
-    
-    // Create mailto link with form data
-    const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
-    const body = encodeURIComponent(
-        `Name: ${name}\n` +
-        `Email: ${email}\n\n` +
-        `Message:\n${message}\n\n` +
-        `---\n` +
-        `Sent from akobaloyi.github.io`
-    );
-    
-    const mailtoLink = `mailto:Akobaloyi01@gmail.com?subject=${subject}&body=${body}`;
-    
-    // Open email client
-    window.location.href = mailtoLink;
-    
-    // Show success message
-    formStatus.textContent = 'Opening your email client... If it doesn\'t open, please email me directly.';
-    formStatus.style.display = 'block';
-    formStatus.style.color = '#4ade80';
-    
-    // Reset form after a delay
-    setTimeout(() => {
-        contactForm.reset();
-        formStatus.style.display = 'none';
-    }, 3000);
-});
+// Contact form removed - using direct contact methods instead
 
 // ===== Easter Egg =====
 const easterEgg = document.querySelector('.easter-egg');

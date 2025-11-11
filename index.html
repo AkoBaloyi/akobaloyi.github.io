@@ -278,16 +278,26 @@
                 <h3>For Collaborators</h3>
                 <p>I like working with people who think deeply and build with intention. If that sounds like you, reach out.</p>
             </div>
-            <form class="contact-form fade-in" id="contactForm">
-                <input type="text" name="name" id="name" placeholder="Name" required>
-                <input type="email" name="email" id="email" placeholder="Email" required>
-                <textarea name="message" id="message" rows="5" placeholder="Let's build something meaningful." required></textarea>
+            <form class="contact-form fade-in" action="https://formsubmit.co/Akobaloyi01@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="New contact from Portfolio!">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="text" name="name" placeholder="Name" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <textarea name="message" rows="5" placeholder="Let's build something meaningful" required></textarea>
                 <button type="submit" class="submit-button">Send Message</button>
             </form>
-            <div class="form-status" style="display: none;"></div>
-            <div class="direct-contact fade-in" style="margin-top: 2rem; text-align: center;">
-                <p style="color: var(--text-secondary); margin-bottom: 1rem;">Or reach out directly:</p>
-                <a href="mailto:Akobaloyi01@gmail.com" style="color: var(--accent-violet); font-weight: 600; text-decoration: underline;">Akobaloyi01@gmail.com</a>
+            <div class="contact-info fade-in" style="margin-top: 3rem;">
+                <div class="contact-method">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email</h3>
+                    <a href="mailto:Akobaloyi01@gmail.com" class="contact-link">Akobaloyi01@gmail.com</a>
+                </div>
+                <div class="contact-method">
+                    <div class="contact-icon">📱</div>
+                    <h3>Instagram</h3>
+                    <a href="https://instagram.com/baloyiako" target="_blank" rel="noopener noreferrer" class="contact-link">@baloyiako</a>
+                </div>
             </div>
             <div class="social-links">
                 <a href="https://instagram.com/baloyiako" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
