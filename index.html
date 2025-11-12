@@ -313,20 +313,35 @@
                                 status.innerHTML = "Thanks for your message! I'll get back to you soon.";
                                 status.style.color = "#4ade80";
                                 status.style.display = "block";
+                                
+                                // Change button to green with "Sent"
+                                button.textContent = "Sent ✓";
+                                button.style.background = "#4ade80";
+                                button.disabled = true;
+                                
                                 form.reset();
+                                
+                                // Reset button after 3 seconds
+                                setTimeout(() => {
+                                    button.textContent = originalText;
+                                    button.style.background = "";
+                                    button.disabled = false;
+                                    status.style.display = "none";
+                                }, 3000);
                             } else {
                                 status.innerHTML = "Oops! There was a problem. Please try again.";
                                 status.style.color = "#ff6b6b";
                                 status.style.display = "block";
+                                button.textContent = originalText;
+                                button.disabled = false;
                             }
                         } catch (error) {
                             status.innerHTML = "Network error. Please try again.";
                             status.style.color = "#ff6b6b";
                             status.style.display = "block";
+                            button.textContent = originalText;
+                            button.disabled = false;
                         }
-                        
-                        button.textContent = originalText;
-                        button.disabled = false;
                     });
                 })();
             </script>
