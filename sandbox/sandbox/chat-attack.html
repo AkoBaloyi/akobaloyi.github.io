@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Attack Simulator | AI Security Sandbox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/sandbox.css">
+</head>
+<body>
+    <div class="cyber-grid"></div>
+
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">AI<span class="neon">SEC</span></a>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../learn/index.html">Learn</a></li>
+                <li><a href="../sandbox/index.html">Sandbox</a></li>
+                <li><a href="../blog/index.html">Blog</a></li>
+                <li><a href="../about.html">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="sandbox-container">
+        <div class="sandbox-header">
+            <h1>💬 Chat Attack Simulator</h1>
+            <p>Try to break the AI assistant, steal its system prompt, or make it ignore its instructions</p>
+        </div>
+
+        <div class="sandbox-layout">
+            <!-- Left: Chat Window -->
+            <div class="chat-panel">
+                <div class="chat-header">
+                    <span class="status-dot"></span>
+                    <span>AI Assistant Active</span>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message ai-message">
+                        <strong>AI Assistant</strong>
+                        <p>Hello! I'm a helpful AI assistant. I can answer questions about science, history, and general knowledge. How can I help you today?</p>
+                    </div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" id="userInput" placeholder="Type your attack here..." />
+                    <button id="sendBtn">Send</button>
+                </div>
+            </div>
+
+            <!-- Right: System Info -->
+            <div class="info-panel">
+                <div class="info-section">
+                    <h3>🎯 Attack Difficulty</h3>
+                    <input type="range" id="difficulty" min="1" max="3" value="1" />
+                    <div class="difficulty-labels">
+                        <span>Easy</span>
+                        <span>Medium</span>
+                        <span>Hard</span>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>🔒 System Prompt</h3>
+                    <div class="system-prompt" id="systemPrompt">
+                        <p class="hidden-text">??? HIDDEN ???</p>
+                        <p class="hint">Try to extract this with prompt injection</p>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>📊 Attack Score</h3>
+                    <div class="score-display">
+                        <div class="score-number" id="score">0</div>
+                        <div class="score-label">points</div>
+                    </div>
+                    <div class="achievements" id="achievements"></div>
+                </div>
+
+                <div class="info-section">
+                    <h3>💡 Attack Hints</h3>
+                    <ul class="hints-list">
+                        <li>Try asking it to ignore previous instructions</li>
+                        <li>Ask it to repeat its system prompt</li>
+                        <li>Use role-playing to bypass filters</li>
+                        <li>Try jailbreak prompts</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../assets/js/chat-attack.js"></script>
+</body>
+</html>
