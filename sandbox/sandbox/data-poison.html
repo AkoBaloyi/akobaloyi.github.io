@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Poisoning Playground | AI Security Sandbox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/sandbox.css">
+</head>
+<body>
+    <div class="cyber-grid"></div>
+
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">AI<span class="neon">SEC</span></a>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../learn/index.html">Learn</a></li>
+                <li><a href="../index.html#sandbox">Sandbox</a></li>
+                <li><a href="../blog/index.html">Blog</a></li>
+                <li><a href="../about.html">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="sandbox-container">
+        <div class="sandbox-header">
+            <h1>💉 Data Poisoning Playground</h1>
+            <p>Corrupt training data and watch model accuracy collapse in real-time</p>
+        </div>
+
+        <div class="poison-layout">
+            <!-- Left: Dataset Visualization -->
+            <div class="dataset-panel">
+                <h3>📊 Training Dataset</h3>
+                <canvas id="datasetCanvas" width="400" height="400"></canvas>
+                <div class="dataset-stats">
+                    <div class="stat">
+                        <span>Clean Samples:</span>
+                        <span id="cleanCount">100</span>
+                    </div>
+                    <div class="stat">
+                        <span>Poisoned Samples:</span>
+                        <span id="poisonCount" style="color: #ff6b6b;">0</span>
+                    </div>
+                    <div class="stat">
+                        <span>Total Samples:</span>
+                        <span id="totalCount">100</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Middle: Controls -->
+            <div class="poison-controls">
+                <h3>⚙️ Poisoning Controls</h3>
+                
+                <div class="control-section">
+                    <h4>Attack Type</h4>
+                    <select id="poisonType">
+                        <option value="label-flip">Label Flipping</option>
+                        <option value="backdoor">Backdoor Attack</option>
+                        <option value="feature-poison">Feature Poisoning</option>
+                    </select>
+                </div>
+
+                <div class="control-section">
+                    <h4>Poison Percentage</h4>
+                    <input type="range" id="poisonPercent" min="0" max="50" value="0">
+                    <span id="poisonPercentValue">0%</span>
+                </div>
+
+                <div class="control-section">
+                    <h4>Target Class</h4>
+                    <div class="class-buttons">
+                        <button class="class-btn" data-class="0" style="background: #00E8FF;">Class A</button>
+                        <button class="class-btn" data-class="1" style="background: #C400FF;">Class B</button>
+                    </div>
+                </div>
+
+                <button class="poison-btn" id="addPoison">💉 Add Poison</button>
+                <button class="train-btn" id="trainModel">🚀 Train Model</button>
+                <button class="reset-btn" id="resetData">🔄 Reset Dataset</button>
+
+                <div class="training-progress" id="trainingProgress" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p id="progressText">Training...</p>
+                </div>
+            </div>
+
+            <!-- Right: Model Performance -->
+            <div class="performance-panel">
+                <h3>📈 Model Performance</h3>
+                <canvas id="accuracyChart" width="400" height="300"></canvas>
+                
+                <div class="metrics">
+                    <div class="metric-card">
+                        <div class="metric-value" id="accuracy">100%</div>
+                        <div class="metric-label">Accuracy</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="loss">0.05</div>
+                        <div class="metric-label">Loss</div>
+                    </div>
+                </div>
+
+                <div class="attack-impact">
+                    <h4>Attack Impact</h4>
+                    <div class="impact-item">
+                        <span>Accuracy Drop:</span>
+                        <span id="accuracyDrop" style="color: #ff6b6b;">0%</span>
+                    </div>
+                    <div class="impact-item">
+                        <span>Backdoor Success:</span>
+                        <span id="backdoorSuccess">N/A</span>
+                    </div>
+                    <div class="impact-item">
+                        <span>Detection Difficulty:</span>
+                        <span id="detectionDiff">Low</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>💡 Understanding Data Poisoning</h3>
+            <p>Data poisoning attacks corrupt the training data to manipulate model behavior. Attackers can flip labels, inject backdoors, or subtly modify features to cause targeted misclassifications while maintaining overall accuracy. This is one of the most dangerous attacks in machine learning.</p>
+        </div>
+    </section>
+
+    <script src="../assets/js/data-poison.js"></script>
+</body>
+</html>

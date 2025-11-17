@@ -263,9 +263,356 @@
     font-weight: 700;
 }
 
+/* ===== Image Attack Styles ===== */
+.image-attack-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+}
+
+.image-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.upload-section,
+.canvas-section,
+.comparison-section {
+    background: var(--bg-secondary);
+    border: 1px solid rgba(0, 232, 255, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.upload-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--neon-cyan);
+    color: var(--bg-primary);
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.upload-btn:hover {
+    box-shadow: 0 0 20px rgba(0, 232, 255, 0.6);
+}
+
+.samples-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.sample-img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: var(--transition);
+}
+
+.sample-img:hover {
+    border-color: var(--neon-cyan);
+    transform: scale(1.05);
+}
+
+canvas {
+    width: 100%;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.prediction-box {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(0, 232, 255, 0.1);
+    border-radius: 8px;
+}
+
+.prediction-box.attacked {
+    background: rgba(196, 0, 255, 0.1);
+}
+
+.prediction {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0.5rem 0;
+}
+
+.confidence {
+    font-size: 0.9rem;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.controls-panel {
+    background: var(--bg-secondary);
+    border: 1px solid rgba(196, 0, 255, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.control-group {
+    margin-bottom: 1.5rem;
+}
+
+.control-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--neon-purple);
+    font-weight: 600;
+}
+
+.control-group input[type="range"] {
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.control-group select {
+    width: 100%;
+    padding: 0.8rem;
+    background: var(--bg-primary);
+    border: 1px solid rgba(196, 0, 255, 0.3);
+    border-radius: 6px;
+    color: var(--text-white);
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.attack-btn,
+.reset-btn {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-bottom: 1rem;
+}
+
+.attack-btn {
+    background: var(--neon-purple);
+    color: white;
+}
+
+.attack-btn:hover {
+    box-shadow: 0 0 20px rgba(196, 0, 255, 0.6);
+}
+
+.reset-btn {
+    background: transparent;
+    color: var(--text-gray);
+    border: 1px solid var(--text-gray);
+}
+
+.reset-btn:hover {
+    color: var(--text-white);
+    border-color: var(--text-white);
+}
+
+.attack-stats {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.diff-note {
+    text-align: center;
+    color: var(--text-gray);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+/* ===== Data Poisoning Styles ===== */
+.poison-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+}
+
+.dataset-panel,
+.poison-controls,
+.performance-panel {
+    background: var(--bg-secondary);
+    border: 1px solid rgba(0, 232, 255, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.dataset-stats {
+    margin-top: 1rem;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.control-section {
+    margin-bottom: 1.5rem;
+}
+
+.control-section h4 {
+    color: var(--neon-cyan);
+    margin-bottom: 0.5rem;
+}
+
+.class-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.class-btn {
+    flex: 1;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.class-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px currentColor;
+}
+
+.poison-btn,
+.train-btn {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-bottom: 1rem;
+}
+
+.poison-btn {
+    background: #ff6b6b;
+    color: white;
+}
+
+.train-btn {
+    background: var(--neon-cyan);
+    color: var(--bg-primary);
+}
+
+.poison-btn:hover,
+.train-btn:hover {
+    box-shadow: 0 0 20px currentColor;
+}
+
+.training-progress {
+    margin-top: 1rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.metric-card {
+    background: rgba(0, 232, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--neon-cyan);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.metric-label {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+.attack-impact {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+.impact-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.impact-item:last-child {
+    border-bottom: none;
+}
+
+.info-box {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: rgba(0, 232, 255, 0.05);
+    border: 1px solid rgba(0, 232, 255, 0.2);
+    border-radius: 12px;
+}
+
+.info-box h3 {
+    color: var(--neon-cyan);
+    margin-bottom: 1rem;
+}
+
+.info-box p {
+    color: var(--text-gray);
+    line-height: 1.8;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 1024px) {
-    .sandbox-layout {
+    .sandbox-layout,
+    .image-attack-layout,
+    .poison-layout {
         grid-template-columns: 1fr;
     }
 }

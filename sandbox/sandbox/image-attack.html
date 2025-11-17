@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adversarial Image Attack | AI Security Sandbox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/sandbox.css">
+</head>
+<body>
+    <div class="cyber-grid"></div>
+
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">AI<span class="neon">SEC</span></a>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../learn/index.html">Learn</a></li>
+                <li><a href="../index.html#sandbox">Sandbox</a></li>
+                <li><a href="../blog/index.html">Blog</a></li>
+                <li><a href="../about.html">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="sandbox-container">
+        <div class="sandbox-header">
+            <h1>🖼️ Adversarial Image Attack</h1>
+            <p>Add invisible perturbations to fool image classification models</p>
+        </div>
+
+        <div class="image-attack-layout">
+            <!-- Left Panel: Image Upload -->
+            <div class="image-panel">
+                <div class="upload-section">
+                    <h3>Upload or Select Image</h3>
+                    <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                    <button class="upload-btn" onclick="document.getElementById('imageUpload').click()">
+                        📁 Upload Image
+                    </button>
+                    
+                    <div class="sample-images">
+                        <h4>Or use sample images</h4>
+                        <div class="samples-grid">
+                            <img src="../assets/images/cat.jpg" alt="Cat" class="sample-img" data-label="Cat">
+                            <img src="../assets/images/dog.jpg" alt="Dog" class="sample-img" data-label="Dog">
+                            <img src="../assets/images/car.jpg" alt="Car" class="sample-img" data-label="Car">
+                            <img src="../assets/images/plane.jpg" alt="Plane" class="sample-img" data-label="Plane">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="canvas-section">
+                    <h3>Original Image</h3>
+                    <canvas id="originalCanvas" width="300" height="300"></canvas>
+                    <div class="prediction-box">
+                        <strong>Model Prediction:</strong>
+                        <div id="originalPrediction" class="prediction">Upload an image to start</div>
+                        <div id="originalConfidence" class="confidence"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Middle Panel: Perturbation Controls -->
+            <div class="controls-panel">
+                <h3>⚡ Attack Controls</h3>
+                
+                <div class="control-group">
+                    <label>Perturbation Strength</label>
+                    <input type="range" id="perturbStrength" min="1" max="50" value="10">
+                    <span id="strengthValue">10</span>
+                </div>
+
+                <div class="control-group">
+                    <label>Attack Type</label>
+                    <select id="attackType">
+                        <option value="random">Random Noise</option>
+                        <option value="targeted">Targeted Attack</option>
+                        <option value="gradient">Gradient-based</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label>Target Class (for targeted attacks)</label>
+                    <select id="targetClass">
+                        <option value="dog">Dog</option>
+                        <option value="cat">Cat</option>
+                        <option value="car">Car</option>
+                        <option value="plane">Airplane</option>
+                        <option value="bird">Bird</option>
+                    </select>
+                </div>
+
+                <button class="attack-btn" id="applyAttack">🚀 Apply Attack</button>
+                <button class="reset-btn" id="resetImage">🔄 Reset</button>
+
+                <div class="attack-stats">
+                    <h4>Attack Statistics</h4>
+                    <div class="stat-item">
+                        <span>Perturbation Size:</span>
+                        <span id="perturbSize">0 pixels</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Success Rate:</span>
+                        <span id="successRate">0%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Confidence Drop:</span>
+                        <span id="confidenceDrop">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Attacked Image -->
+            <div class="image-panel">
+                <div class="canvas-section">
+                    <h3>Attacked Image</h3>
+                    <canvas id="attackedCanvas" width="300" height="300"></canvas>
+                    <div class="prediction-box attacked">
+                        <strong>Model Prediction:</strong>
+                        <div id="attackedPrediction" class="prediction">Apply attack to see results</div>
+                        <div id="attackedConfidence" class="confidence"></div>
+                    </div>
+                </div>
+
+                <div class="comparison-section">
+                    <h3>Visual Difference</h3>
+                    <canvas id="diffCanvas" width="300" height="300"></canvas>
+                    <p class="diff-note">Amplified 10x for visibility</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>💡 How Adversarial Attacks Work</h3>
+            <p>Adversarial attacks add carefully crafted noise to images that are invisible to humans but cause AI models to misclassify them. These attacks expose fundamental vulnerabilities in neural networks and are crucial for understanding AI security.</p>
+        </div>
+    </section>
+
+    <script src="../assets/js/image-attack.js"></script>
+</body>
+</html>

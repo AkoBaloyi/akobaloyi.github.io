@@ -369,6 +369,221 @@ body {
     justify-content: center;
 }
 
+/* ===== About Page ===== */
+.about-section {
+    padding: 8rem 2rem 4rem;
+    min-height: 100vh;
+}
+
+.about-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.about-content h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--neon-cyan);
+}
+
+.about-card,
+.contact-card {
+    background: var(--bg-secondary);
+    border: 1px solid rgba(0, 232, 255, 0.3);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.about-card h2,
+.contact-card h2 {
+    color: var(--neon-cyan);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.about-card p,
+.contact-card p {
+    color: var(--text-gray);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.background-list {
+    list-style: none;
+    padding: 0;
+}
+
+.background-list li {
+    padding: 0.8rem 0;
+    color: var(--text-gray);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.background-list li:last-child {
+    border-bottom: none;
+}
+
+.contact-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+
+.contact-btn {
+    padding: 1rem 2rem;
+    background: transparent;
+    color: var(--neon-cyan);
+    border: 2px solid var(--neon-cyan);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.contact-btn:hover {
+    background: rgba(0, 232, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 232, 255, 0.4);
+}
+
+/* ===== Learn Page ===== */
+.learn-section,
+.blog-section {
+    padding: 8rem 2rem 4rem;
+    min-height: 100vh;
+}
+
+.learn-section h1,
+.blog-section h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--neon-cyan);
+}
+
+.subtitle {
+    text-align: center;
+    color: var(--text-gray);
+    font-size: 1.2rem;
+    margin-bottom: 4rem;
+}
+
+.learn-grid,
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.learn-card,
+.blog-card {
+    background: var(--bg-secondary);
+    border: 1px solid rgba(0, 232, 255, 0.3);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: var(--transition);
+    position: relative;
+}
+
+.learn-card:hover,
+.blog-card:hover {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 30px rgba(0, 232, 255, 0.3);
+    transform: translateY(-5px);
+}
+
+.learn-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.learn-card h3,
+.blog-card h3 {
+    color: var(--neon-cyan);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.learn-card p,
+.blog-card p {
+    color: var(--text-gray);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.coming-soon {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(196, 0, 255, 0.2);
+    color: var(--neon-purple);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.blog-date {
+    color: var(--neon-purple);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.read-time {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+.subscribe-box {
+    max-width: 600px;
+    margin: 4rem auto 0;
+    padding: 3rem;
+    background: var(--bg-secondary);
+    border: 1px solid rgba(0, 232, 255, 0.3);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.subscribe-box h3 {
+    color: var(--neon-cyan);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.subscribe-box p {
+    color: var(--text-gray);
+    margin-bottom: 2rem;
+}
+
+.subscribe-form {
+    display: flex;
+    gap: 1rem;
+}
+
+.subscribe-form input {
+    flex: 1;
+    padding: 1rem;
+    background: var(--bg-primary);
+    border: 1px solid rgba(0, 232, 255, 0.3);
+    border-radius: 8px;
+    color: var(--text-white);
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.subscribe-form button {
+    padding: 1rem 2rem;
+    background: var(--neon-cyan);
+    color: var(--bg-primary);
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
     .nav-menu {

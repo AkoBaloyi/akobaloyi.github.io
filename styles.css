@@ -158,6 +158,18 @@ a {
     width: 100%;
 }
 
+.sandbox-link {
+    background: linear-gradient(135deg, rgba(108, 99, 255, 0.2), rgba(112, 224, 255, 0.2));
+    padding: 0.5rem 1rem !important;
+    border-radius: 20px;
+    border: 1px solid var(--accent-violet);
+}
+
+.sandbox-link:hover {
+    background: linear-gradient(135deg, rgba(108, 99, 255, 0.3), rgba(112, 224, 255, 0.3));
+    box-shadow: 0 0 15px rgba(108, 99, 255, 0.4);
+}
+
 .nav-toggle {
     display: none;
     flex-direction: column;
@@ -677,6 +689,85 @@ a {
     color: var(--accent-cyan);
     font-weight: 500;
     font-size: 1rem;
+}
+
+/* ===== Sandbox Promo ===== */
+.sandbox-promo {
+    max-width: 800px;
+    margin: 3rem auto 0;
+}
+
+.sandbox-card {
+    background: linear-gradient(135deg, rgba(108, 99, 255, 0.1), rgba(112, 224, 255, 0.1));
+    border: 2px solid var(--accent-violet);
+    border-radius: 20px;
+    padding: 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.sandbox-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(108, 99, 255, 0.1), transparent);
+    animation: shimmer 3s infinite;
+}
+
+.sandbox-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(108, 99, 255, 0.4);
+    border-color: var(--accent-cyan);
+}
+
+.sandbox-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.sandbox-card h3 {
+    color: var(--accent-violet);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.sandbox-card p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.sandbox-btn {
+    display: inline-block;
+    padding: 1rem 3rem;
+    background: var(--accent-violet);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: var(--transition);
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 5px 20px rgba(108, 99, 255, 0.4);
+}
+
+.sandbox-btn:hover {
+    background: var(--accent-cyan);
+    box-shadow: 0 5px 30px rgba(112, 224, 255, 0.6);
+    transform: translateY(-2px);
 }
 
 /* ===== Personal Section ===== */
