@@ -29,50 +29,58 @@
             <p class="subtitle">Short guides and tutorials on AI attacks and defenses</p>
 
             <div class="learn-grid">
-                <div class="learn-card">
+                <div class="learn-card" onclick="showLearnModal('prompt-injection')">
                     <div class="learn-icon">💉</div>
                     <h3>Prompt Injection</h3>
                     <p>Learn how attackers manipulate LLM instructions to bypass safety guardrails</p>
-                    <span class="coming-soon">Coming Soon</span>
+                    <span style="color: var(--neon-cyan); font-size: 0.9rem; font-weight: 600;">Click to Learn →</span>
                 </div>
 
-                <div class="learn-card">
+                <div class="learn-card" onclick="showLearnModal('adversarial-images')">
                     <div class="learn-icon">🖼️</div>
                     <h3>Adversarial Images</h3>
                     <p>Understand how invisible perturbations fool computer vision models</p>
-                    <span class="coming-soon">Coming Soon</span>
+                    <span style="color: var(--neon-cyan); font-size: 0.9rem; font-weight: 600;">Click to Learn →</span>
                 </div>
 
-                <div class="learn-card">
+                <div class="learn-card" onclick="showLearnModal('model-poisoning')">
                     <div class="learn-icon">🧪</div>
                     <h3>Model Poisoning</h3>
                     <p>Discover how corrupted training data compromises AI systems</p>
-                    <span class="coming-soon">Coming Soon</span>
+                    <span style="color: var(--neon-cyan); font-size: 0.9rem; font-weight: 600;">Click to Learn →</span>
                 </div>
 
-                <div class="learn-card">
+                <div class="learn-card" onclick="showLearnModal('defense-strategies')">
                     <div class="learn-icon">🛡️</div>
                     <h3>Defense Strategies</h3>
                     <p>Explore rate-limiting, input validation, and security architectures</p>
-                    <span class="coming-soon">Coming Soon</span>
+                    <span style="color: var(--neon-cyan); font-size: 0.9rem; font-weight: 600;">Click to Learn →</span>
                 </div>
 
-                <div class="learn-card">
-                    <div class="learn-icon">☁️</div>
-                    <h3>Cloud Security for AI</h3>
-                    <p>Secure AI deployments in cloud environments like AWS</p>
-                    <span class="coming-soon">Coming Soon</span>
+                <div class="learn-card" onclick="showLearnModal('jailbreaking')">
+                    <div class="learn-icon">🔓</div>
+                    <h3>Jailbreaking LLMs</h3>
+                    <p>Techniques to bypass AI safety measures and content filters</p>
+                    <span style="color: var(--neon-cyan); font-size: 0.9rem; font-weight: 600;">Click to Learn →</span>
                 </div>
 
-                <div class="learn-card">
-                    <div class="learn-icon">🎮</div>
-                    <h3>Game Theory in AI Safety</h3>
-                    <p>Apply game theory concepts to AI security challenges</p>
-                    <span class="coming-soon">Coming Soon</span>
+                <div class="learn-card" onclick="showLearnModal('real-world')">
+                    <div class="learn-icon">🌍</div>
+                    <h3>Real-World Attacks</h3>
+                    <p>Case studies of actual AI security breaches and vulnerabilities</p>
+                    <span style="color: var(--neon-cyan); font-size: 0.9rem; font-weight: 600;">Click to Learn →</span>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Learning Modal -->
+    <div id="learnModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeLearnModal()">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
 
     <footer class="footer">
         <div class="container">
@@ -81,5 +89,6 @@
     </footer>
 
     <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/learn.js"></script>
 </body>
 </html>

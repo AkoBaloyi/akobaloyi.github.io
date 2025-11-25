@@ -1,4 +1,4 @@
-// ===== Image Attack Simulator =====
+// ===== Image Attack Simulator with Gemini Vision =====
 
 const imageUpload = document.getElementById('imageUpload');
 const originalCanvas = document.getElementById('originalCanvas');
@@ -17,22 +17,117 @@ const resetBtn = document.getElementById('resetImage');
 
 let currentImage = null;
 let originalImageData = null;
+let originalClassification = null;
 
-// Mock classification model
-const classificationModel = {
-    'cat': { confidence: 0.95, alternatives: ['dog', 'tiger', 'lion'] },
-    'dog': { confidence: 0.92, alternatives: ['cat', 'wolf', 'fox'] },
-    'car': { confidence: 0.88, alternatives: ['truck', 'bus', 'vehicle'] },
-    'plane': { confidence: 0.90, alternatives: ['bird', 'helicopter', 'jet'] }
-};
+// API Configuration - DO NOT commit API keys to GitHub!
+// For local development, create a config.js file (gitignored)
+// For production, use a backend proxy or environment variables
+const GEMINI_API_KEY = window.GEMINI_API_KEY || '';
+const GEMINI_VISION_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent';
 
-function loadImage(src, label) {
+// Check if API key is configured
+if (!GEMINI_API_KEY) {
+    console.error('%c⚠️ API Key Not Configured', 'color: #ff6b6b; font-size: 14px; font-weight: bold;');
+    console.log('%cTo use this feature:', 'color: #00E8FF; font-size: 12px;');
+    console.log('%c1. Create sandbox/config.js with: window.GEMINI_API_KEY = "your-key-here";', 'color: #A0A0A0;');
+    console.log('%c2. Or set up a backend proxy (see DEPLOYMENT.md)', 'color: #A0A0A0;');
+}
+
+async function classifyImageWithGemini(imageDataUrl) {
+    // Check if API key is configured
+    if (!GEMINI_API_KEY) {
+        return {
+            label: 'API Key Not Configured',
+            confidence: 0.0,
+            error: true
+        };
+    }
+    
+    try {
+        // Remove data URL prefix
+        const base64Image = imageDataUrl.split(',')[1];
+        
+        const response = await fetch(`${GEMINI_VISION_URL}?key=${GEMINI_API_KEY}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [
+                        {
+                            text: "Classify this image in one or two words. What is the main object or subject? Be specific and concise. Format: 'Object (confidence: X%)'"
+                        },
+                        {
+                            inline_data: {
+                                mime_type: "image/jpeg",
+                                data: base64Image
+                            }
+                        }
+                    ]
+                }],
+                generationConfig: {
+                    temperature: 0.4,
+                    maxOutputTokens: 100,
+                }
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`API Error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const result = data.candidates[0].content.parts[0].text;
+        
+        // Parse the result
+        const match = result.match(/(.+?)\s*\(confidence:\s*(\d+)%\)/i);
+        if (match) {
+            return {
+                label: match[1].trim(),
+                confidence: parseInt(match[2]) / 100
+            };
+        }
+        
+        // Fallback parsing
+        return {
+            label: result.split('\n')[0].trim(),
+            confidence: 0.85
+        };
+    } catch (error) {
+        console.error('Gemini Vision API Error:', error);
+        return {
+            label: 'Unknown',
+            confidence: 0.0,
+            error: true
+        };
+    }
+}
+
+async function loadImage(src, label = null) {
     const img = new Image();
     img.crossOrigin = 'anonymous';
-    img.onload = function() {
+    img.onload = async function() {
         currentImage = img;
         drawOriginalImage();
-        classifyImage(label, true);
+        
+        // Show loading state
+        document.getElementById('originalPrediction').textContent = 'Analyzing...';
+        document.getElementById('originalConfidence').textContent = 'Please wait...';
+        
+        // Get canvas data URL for API
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = originalCanvas.width;
+        tempCanvas.height = originalCanvas.height;
+        const tempCtx = tempCanvas.getContext('2d');
+        tempCtx.drawImage(img, 0, 0, tempCanvas.width, tempCanvas.height);
+        const imageDataUrl = tempCanvas.toDataURL('image/jpeg', 0.8);
+        
+        // Classify with Gemini
+        const classification = await classifyImageWithGemini(imageDataUrl);
+        originalClassification = classification;
+        
+        displayClassification(classification, true);
     };
     img.src = src;
 }
@@ -50,22 +145,32 @@ function drawOriginalImage() {
     diffCtx.clearRect(0, 0, diffCanvas.width, diffCanvas.height);
 }
 
-function classifyImage(label, isOriginal) {
-    const model = classificationModel[label.toLowerCase()] || { confidence: 0.85, alternatives: ['unknown'] };
+function displayClassification(classification, isOriginal) {
     const predictionEl = isOriginal ? document.getElementById('originalPrediction') : document.getElementById('attackedPrediction');
     const confidenceEl = isOriginal ? document.getElementById('originalConfidence') : document.getElementById('attackedConfidence');
     
-    predictionEl.textContent = label.charAt(0).toUpperCase() + label.slice(1);
-    predictionEl.style.color = 'var(--neon-cyan)';
-    confidenceEl.textContent = `Confidence: ${(model.confidence * 100).toFixed(1)}%`;
-    confidenceEl.style.color = model.confidence > 0.8 ? '#4ade80' : '#ff6b6b';
+    if (classification.error) {
+        predictionEl.textContent = 'Error analyzing image';
+        predictionEl.style.color = '#ff6b6b';
+        confidenceEl.textContent = 'Please try again';
+        return;
+    }
+    
+    predictionEl.textContent = classification.label;
+    predictionEl.style.color = isOriginal ? 'var(--neon-cyan)' : 'var(--neon-purple)';
+    confidenceEl.textContent = `Confidence: ${(classification.confidence * 100).toFixed(1)}%`;
+    confidenceEl.style.color = classification.confidence > 0.7 ? '#4ade80' : '#ff6b6b';
 }
 
-function applyAdversarialAttack() {
+async function applyAdversarialAttack() {
     if (!originalImageData) {
         alert('Please upload or select an image first!');
         return;
     }
+    
+    // Disable button
+    applyAttackBtn.disabled = true;
+    applyAttackBtn.textContent = '⏳ Attacking...';
     
     const strength = parseInt(perturbStrength.value);
     const attack = attackType.value;
@@ -107,36 +212,51 @@ function applyAdversarialAttack() {
     // Draw difference
     diffCtx.putImageData(diffData, 0, 0);
     
-    // Simulate misclassification
-    const originalLabel = document.getElementById('originalPrediction').textContent.toLowerCase();
-    const newLabel = attack === 'targeted' ? target : getRandomMisclassification(originalLabel);
-    classifyImage(newLabel, false);
+    // Show analyzing state
+    document.getElementById('attackedPrediction').textContent = 'Analyzing attacked image...';
+    document.getElementById('attackedConfidence').textContent = 'Please wait...';
+    
+    // Get attacked image data URL
+    const attackedDataUrl = attackedCanvas.toDataURL('image/jpeg', 0.8);
+    
+    // Classify attacked image with Gemini
+    const attackedClassification = await classifyImageWithGemini(attackedDataUrl);
+    displayClassification(attackedClassification, false);
     
     // Update stats
-    updateStats(strength, originalLabel, newLabel);
+    updateStats(strength, originalClassification, attackedClassification);
+    
+    // Re-enable button
+    applyAttackBtn.disabled = false;
+    applyAttackBtn.textContent = '🚀 Apply Attack';
 }
 
-function getRandomMisclassification(original) {
-    const alternatives = classificationModel[original]?.alternatives || ['unknown', 'object', 'thing'];
-    return alternatives[Math.floor(Math.random() * alternatives.length)];
-}
-
-function updateStats(strength, original, attacked) {
+function updateStats(strength, originalClass, attackedClass) {
     document.getElementById('perturbSize').textContent = `${strength * 10} pixels`;
     
-    const success = original !== attacked ? 100 : 0;
-    document.getElementById('successRate').textContent = `${success}%`;
-    document.getElementById('successRate').style.color = success > 0 ? '#4ade80' : '#ff6b6b';
+    // Check if attack was successful (different classification)
+    const success = originalClass.label.toLowerCase() !== attackedClass.label.toLowerCase();
+    document.getElementById('successRate').textContent = success ? '100%' : '0%';
+    document.getElementById('successRate').style.color = success ? '#4ade80' : '#ff6b6b';
     
-    const drop = Math.min(95, strength * 2 + Math.random() * 20);
-    document.getElementById('confidenceDrop').textContent = `${drop.toFixed(1)}%`;
+    // Calculate confidence drop
+    const confidenceDrop = Math.abs(originalClass.confidence - attackedClass.confidence) * 100;
+    document.getElementById('confidenceDrop').textContent = `${confidenceDrop.toFixed(1)}%`;
+    
+    // Show success message
+    if (success) {
+        const msg = document.createElement('div');
+        msg.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0, 232, 255, 0.9); color: #0D0D0D; padding: 2rem; border-radius: 12px; font-size: 1.5rem; font-weight: bold; z-index: 10000; animation: slideIn 0.3s ease;';
+        msg.textContent = `🎯 Attack Successful! ${originalClass.label} → ${attackedClass.label}`;
+        document.body.appendChild(msg);
+        setTimeout(() => msg.remove(), 3000);
+    }
 }
 
 function resetImage() {
-    if (currentImage) {
+    if (currentImage && originalClassification) {
         drawOriginalImage();
-        const label = document.getElementById('originalPrediction').textContent.toLowerCase();
-        classifyImage(label, false);
+        displayClassification(originalClassification, false);
         
         document.getElementById('perturbSize').textContent = '0 pixels';
         document.getElementById('successRate').textContent = '0%';
@@ -150,7 +270,7 @@ imageUpload.addEventListener('change', (e) => {
     if (file) {
         const reader = new FileReader();
         reader.onload = (event) => {
-            loadImage(event.target.result, 'unknown');
+            loadImage(event.target.result);
         };
         reader.readAsDataURL(file);
     }
@@ -158,8 +278,7 @@ imageUpload.addEventListener('change', (e) => {
 
 document.querySelectorAll('.sample-img').forEach(img => {
     img.addEventListener('click', () => {
-        const label = img.dataset.label;
-        loadImage(img.src, label);
+        loadImage(img.src);
     });
 });
 
@@ -195,4 +314,5 @@ function createPlaceholderImages() {
 
 createPlaceholderImages();
 
-console.log('%c🖼️ Image Attack Simulator Loaded', 'color: #00E8FF; font-size: 16px; font-weight: bold;');
+console.log('%c🖼️ Image Attack Simulator with Gemini Vision', 'color: #00E8FF; font-size: 16px; font-weight: bold;');
+console.log('%cUpload an image or select a sample to start attacking!', 'color: #C400FF;');

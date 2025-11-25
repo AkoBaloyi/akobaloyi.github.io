@@ -15,8 +15,19 @@ let conversationHistory = [];
 let attackAttempts = 0;
 let successfulAttacks = 0;
 
-const GEMINI_API_KEY = 'AIzaSyAfcNnVD9qcgA-f3Zhq4mGusQm264JrhcU';
+// API Configuration - DO NOT commit API keys to GitHub!
+// For local development, create a config.js file (gitignored)
+// For production, use a backend proxy or environment variables
+const GEMINI_API_KEY = window.GEMINI_API_KEY || '';
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
+
+// Check if API key is configured
+if (!GEMINI_API_KEY) {
+    console.error('%c⚠️ API Key Not Configured', 'color: #ff6b6b; font-size: 14px; font-weight: bold;');
+    console.log('%cTo use this feature:', 'color: #00E8FF; font-size: 12px;');
+    console.log('%c1. Create sandbox/config.js with: window.GEMINI_API_KEY = "your-key-here";', 'color: #A0A0A0;');
+    console.log('%c2. Or set up a backend proxy (see DEPLOYMENT.md)', 'color: #A0A0A0;');
+}
 
 // System prompts for different difficulty levels
 const SYSTEM_PROMPTS = {
@@ -72,6 +83,11 @@ function detectAttack(input) {
 }
 
 async function callGeminiAPI(userMessage, difficulty) {
+    // Check if API key is configured
+    if (!GEMINI_API_KEY) {
+        return "⚠️ API key not configured. Please see console for setup instructions.";
+    }
+    
     const systemPromptText = SYSTEM_PROMPTS[difficulty];
     
     // Build conversation context
