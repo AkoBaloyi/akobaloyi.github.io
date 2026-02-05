@@ -1,0 +1,23 @@
+{
+  "name": "gemini-proxy-worker",
+  "version": "1.0.0",
+  "description": "Secure Cloudflare Worker proxy for Google Gemini API",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail"
+  },
+  "keywords": [
+    "cloudflare",
+    "worker",
+    "gemini",
+    "proxy",
+    "ai"
+  ],
+  "author": "Ako Baloyi",
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}

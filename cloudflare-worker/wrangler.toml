@@ -1,0 +1,17 @@
+name = "gemini-proxy-worker"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+# KV namespace for rate limiting
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "018d54e3c8eb43bc868db3a840eaa5d2"
+
+# Environment variables (set via wrangler secret or dashboard)
+[vars]
+ALLOWED_ORIGIN = "https://akobaloyi.github.io"
+# SANDBOX_DEV_TOKEN will be set via: wrangler secret put SANDBOX_DEV_TOKEN
+
+# Secrets (set these via: wrangler secret put SECRET_NAME)
+# - GEMINI_API_KEY
+# - SANDBOX_DEV_TOKEN
