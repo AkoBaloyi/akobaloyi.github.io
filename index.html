@@ -48,8 +48,10 @@
             </button>
             <ul class="nav-menu">
                 <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
                 <li><a href="#projects">Projects</a></li>
+                <li><a href="#security">Skills</a></li>
+                <li><a href="#about">About</a></li>
                 <li><a href="sandbox/index.html" class="sandbox-link">🔓 AI Sandbox</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -61,7 +63,7 @@
         <canvas id="particle-canvas"></canvas>
         <div class="hero-content">
             <h1 class="glitch" data-text="Engineering Systems. Securing Networks. Shipping Products.">Engineering Systems. Securing Networks. Shipping Products.</h1>
-            <p class="hero-subtitle">Final-year BEngSc student at Wits and Co-Founder of Adigital, a digital agency I run with real, paying clients. I work across the full stack: bare-metal AVR Assembly and embedded firmware on one end, AWS cloud and production web deployments on the other.</p>
+            <p class="hero-subtitle">I am a final-year BEngSc candidate at Wits University and Co-Founder of Adigital, a live digital agency delivering production systems for active business clients.</p>
             <a href="mailto:Akobaloyi01@gmail.com" class="cta-button">Get In Touch</a>
         </div>
     </section>
@@ -101,14 +103,64 @@
         </div>
     </section>
 
-    <!-- About / Education -->
-    <section id="about" class="section">
+    <!-- Projects -->
+    <section id="projects" class="section section-dark">
         <div class="container">
-            <h2 class="section-title fade-in">Education</h2>
-            <h3 class="education-heading fade-in">BEngSc in Digital Arts (Software Engineering, AI &amp; Cybersecurity)</h3>
-            <p class="edu-meta fade-in">Wits University · Expected completion: Semester 1, 2027</p>
-            <p class="about-text fade-in">I have one module left to finish in the first semester of 2027. The degree itself spans software engineering, AI, and cybersecurity, which is intentional. I wanted a base that lets me work across disciplines instead of getting stuck inside one.</p>
-            <p class="about-text fade-in">Most of what I've actually shipped, though, has happened outside the classroom. I've spent the last stretch of my degree co-running Adigital, handling live deployments and client work alongside coursework. By the time I walk into a 2027 graduate programme, I'll already know what production pressure feels like.</p>
+            <h2 class="section-title fade-in">Things I've Built and Learned From</h2>
+            <div class="projects-grid">
+                <div class="project-card fade-in">
+                    <div class="project-content">
+                        <span class="project-badge">Live Deployment</span>
+                        <h3>renke.co.za, Production Client Site</h3>
+                        <p>The client wanted a real web presence on a custom domain, properly hosted, with SSL, and zero downtime. I owned the whole stack: DNS records (A, CNAME, MX), cloud hosting, certificates, and the deploy pipeline, all from a cold start.</p>
+                        <p>It's been live ever since and is actively serving the business. Owning a site end to end in production is different from just writing the front-end, and that's the part I wanted to prove I could do.</p>
+                        <p class="project-result">Live at renke.co.za, in active use.</p>
+                        <div class="project-tags">
+                            <span>DNS</span>
+                            <span>Cloud Hosting</span>
+                            <span>SSL/TLS</span>
+                            <span>CI/CD</span>
+                            <span>System Architecture</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://renke.co.za" target="_blank" rel="noopener noreferrer">View Live Site</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card fade-in">
+                    <div class="project-content">
+                        <span class="project-badge">Embedded Systems</span>
+                        <h3>AVR Safe Lock, Bare-Metal Firmware</h3>
+                        <p>The brief was a hardware lock built at the lowest level I could reasonably go: no Arduino library, no HAL. I wrote the whole firmware for an ATmega328P in AVR Assembly, with custom timer and counter setup, I2C peripheral comms, and an interrupt-driven state machine talking straight to the register map.</p>
+                        <p>The point of the project, for me, was to prove I can think at the hardware level: interrupt latency, register constraints, clock prescaling, the timing guarantees you stop seeing once you're in a higher-level language. That's the muscle you need for embedded security and firmware work, and I wanted it on paper.</p>
+                        <p class="project-result">Working interrupt-driven lock, no abstractions in the way.</p>
+                        <div class="project-tags">
+                            <span>AVR Assembly</span>
+                            <span>ATmega328P</span>
+                            <span>Hardware Interrupts</span>
+                            <span>I2C</span>
+                            <span>Timers</span>
+                            <span>Bare-Metal</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card fade-in">
+                    <div class="project-content">
+                        <span class="project-badge">Cloud &amp; Mobile</span>
+                        <h3>Android + AWS, Cloud-Native Mobile App</h3>
+                        <p>I needed a mobile-first app with a serverless backend that could handle auth, storage, and an API without me over-building it. So I built the Android client and wired it up to AWS services for identity, persistence, and the API layer in between.</p>
+                        <p>The interesting part was the seam between the two: how a mobile client authenticates against a cloud identity provider, how data moves through, and how to design an API that doesn't fall over on a flaky connection.</p>
+                        <p class="project-result">Working cloud-native app, mobile to cloud, end to end.</p>
+                        <div class="project-tags">
+                            <span>Android</span>
+                            <span>AWS</span>
+                            <span>Cloud Architecture</span>
+                            <span>REST API</span>
+                            <span>Mobile</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -189,65 +241,14 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="section section-dark">
+    <!-- About / Education -->
+    <section id="about" class="section">
         <div class="container">
-            <h2 class="section-title fade-in">Things I've Built and Learned From</h2>
-            <div class="projects-grid">
-                <div class="project-card fade-in">
-                    <div class="project-content">
-                        <span class="project-badge">Live Deployment</span>
-                        <h3>renke.co.za, Production Client Site</h3>
-                        <p>The client wanted a real web presence on a custom domain, properly hosted, with SSL, and zero downtime. I owned the whole stack: DNS records (A, CNAME, MX), cloud hosting, certificates, and the deploy pipeline, all from a cold start.</p>
-                        <p>It's been live ever since and is actively serving the business. Owning a site end to end in production is different from just writing the front-end, and that's the part I wanted to prove I could do.</p>
-                        <p class="project-result">Live at renke.co.za, in active use.</p>
-                        <div class="project-tags">
-                            <span>DNS</span>
-                            <span>Cloud Hosting</span>
-                            <span>SSL/TLS</span>
-                            <span>CI/CD</span>
-                            <span>System Architecture</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://renke.co.za" target="_blank" rel="noopener noreferrer">View Live Site</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <div class="project-content">
-                        <span class="project-badge">Embedded Systems</span>
-                        <h3>AVR Safe Lock, Bare-Metal Firmware</h3>
-                        <p>The brief was a hardware lock built at the lowest level I could reasonably go: no Arduino library, no HAL. I wrote the whole firmware for an ATmega328P in AVR Assembly, with custom timer and counter setup, I2C peripheral comms, and an interrupt-driven state machine talking straight to the register map.</p>
-                        <p>The point of the project, for me, was to prove I can think at the hardware level: interrupt latency, register constraints, clock prescaling, the timing guarantees you stop seeing once you're in a higher-level language. That's the muscle you need for embedded security and firmware work, and I wanted it on paper.</p>
-                        <p class="project-result">Working interrupt-driven lock, no abstractions in the way.</p>
-                        <div class="project-tags">
-                            <span>AVR Assembly</span>
-                            <span>ATmega328P</span>
-                            <span>Hardware Interrupts</span>
-                            <span>I2C</span>
-                            <span>Timers</span>
-                            <span>Bare-Metal</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <div class="project-content">
-                        <span class="project-badge">Cloud &amp; Mobile</span>
-                        <h3>Android + AWS, Cloud-Native Mobile App</h3>
-                        <p>I needed a mobile-first app with a serverless backend that could handle auth, storage, and an API without me over-building it. So I built the Android client and wired it up to AWS services for identity, persistence, and the API layer in between.</p>
-                        <p>The interesting part was the seam between the two: how a mobile client authenticates against a cloud identity provider, how data moves through, and how to design an API that doesn't fall over on a flaky connection.</p>
-                        <p class="project-result">Working cloud-native app, mobile to cloud, end to end.</p>
-                        <div class="project-tags">
-                            <span>Android</span>
-                            <span>AWS</span>
-                            <span>Cloud Architecture</span>
-                            <span>REST API</span>
-                            <span>Mobile</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <p class="projects-tagline">I don't just build tools, I build understanding</p>
+            <h2 class="section-title fade-in">Education</h2>
+            <h3 class="education-heading fade-in">BEngSc in Digital Arts (Software Engineering, AI &amp; Cybersecurity)</h3>
+            <p class="edu-meta fade-in">Wits University · Expected completion: Semester 1, 2027</p>
+            <p class="about-text fade-in">I have one module left to finish in the first semester of 2027. The degree itself spans software engineering, AI, and cybersecurity, which is intentional. I wanted a base that lets me work across disciplines instead of getting stuck inside one.</p>
+            <p class="about-text fade-in">Most of what I've actually shipped, though, has happened outside the classroom. I've spent the last stretch of my degree co-running Adigital, handling live deployments and client work alongside coursework. By the time I walk into a 2027 graduate programme, I'll already know what production pressure feels like.</p>
         </div>
     </section>
 
@@ -261,7 +262,52 @@
         </div>
     </section>
 
-    <!-- Personal Section -->
+    <!-- In Motion Section -->
+    <section id="motion" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">In Motion</h2>
+            <div class="motion-content fade-in">
+                <h3>Currently Learning and Building</h3>
+                <p class="motion-text">
+                    Right now, I'm deep into cybersecurity and how it connects with machine learning. I'm fascinated by how we can automate trust, intelligence, and protection through thoughtful design and systems thinking. My focus is on understanding how cloud technologies and AI can work together to create solutions that are both resilient and adaptive. Security isn't just about defense anymore, it's about building systems that think ahead.
+                </p>
+                <div class="motion-status">
+                    <div class="status-indicator"></div>
+                    <span style="font-family: 'Courier New', monospace; color: var(--accent-cyan);">// currently: cybersecurity × ML</span>
+                </div>
+            </div>
+            
+            <!-- AI Security Sandbox Link -->
+            <div class="sandbox-promo fade-in">
+                <div class="sandbox-card">
+                    <div class="sandbox-icon">🔓</div>
+                    <h3>AI Security Sandbox</h3>
+                    <p>Interactive playground for learning AI security through hands-on attack simulations. Break AI systems, understand vulnerabilities, and learn defense strategies.</p>
+                    <a href="sandbox/index.html" class="sandbox-btn">Enter Sandbox →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Purpose Section -->
+    <section id="purpose" class="section section-dark">
+        <div class="container">
+            <svg class="circuit-bg" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+                <path class="circuit-path" d="M 100 200 L 200 200 L 200 100 L 400 100 L 400 300 L 600 300 L 600 200 L 700 200" />
+                <circle class="circuit-node" cx="100" cy="200" r="5" />
+                <circle class="circuit-node" cx="400" cy="100" r="5" />
+                <circle class="circuit-node" cx="400" cy="300" r="5" />
+                <circle class="circuit-node" cx="700" cy="200" r="5" />
+            </svg>
+            <h2 class="section-title fade-in">Why I Build</h2>
+            <p class="purpose-text fade-in">
+                Technology should serve clarity, not chaos. I build systems that simplify life and bring order to complexity. 
+                My vision is a world where purpose drives innovation and where AI-driven solutions are built with security and trust at their core.
+            </p>
+        </div>
+    </section>
+
+    <!-- Personal -->
     <section id="personal" class="section">
         <div class="container">
             <h2 class="section-title fade-in">The Things That Keep Me Human</h2>
@@ -295,51 +341,6 @@
                     <h3>Nature</h3>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- In Motion Section -->
-    <section id="motion" class="section">
-        <div class="container">
-            <h2 class="section-title fade-in">In Motion</h2>
-            <div class="motion-content fade-in">
-                <h3>Currently Learning and Building</h3>
-                <p class="motion-text">
-                    Right now, I'm deep into cybersecurity and how it connects with machine learning. I'm fascinated by how we can automate trust, intelligence, and protection through thoughtful design and systems thinking. My focus is on understanding how cloud technologies and AI can work together to create solutions that are both resilient and adaptive. Security isn't just about defense anymore, it's about building systems that think ahead.
-                </p>
-                <div class="motion-status">
-                    <div class="status-indicator"></div>
-                    <span>Active exploration mode</span>
-                </div>
-            </div>
-            
-            <!-- AI Security Sandbox Link -->
-            <div class="sandbox-promo fade-in">
-                <div class="sandbox-card">
-                    <div class="sandbox-icon">🔓</div>
-                    <h3>AI Security Sandbox</h3>
-                    <p>Interactive playground for learning AI security through hands-on attack simulations. Break AI systems, understand vulnerabilities, and learn defense strategies.</p>
-                    <a href="sandbox/index.html" class="sandbox-btn">Enter Sandbox →</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Purpose Section -->
-    <section id="purpose" class="section section-dark">
-        <div class="container">
-            <svg class="circuit-bg" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
-                <path class="circuit-path" d="M 100 200 L 200 200 L 200 100 L 400 100 L 400 300 L 600 300 L 600 200 L 700 200" />
-                <circle class="circuit-node" cx="100" cy="200" r="5" />
-                <circle class="circuit-node" cx="400" cy="100" r="5" />
-                <circle class="circuit-node" cx="400" cy="300" r="5" />
-                <circle class="circuit-node" cx="700" cy="200" r="5" />
-            </svg>
-            <h2 class="section-title fade-in">Why I Build</h2>
-            <p class="purpose-text fade-in">
-                Technology should serve clarity, not chaos. I build systems that simplify life and bring order to complexity. 
-                My vision is a world where purpose drives innovation and where AI-driven solutions are built with security and trust at their core.
-            </p>
         </div>
     </section>
 
@@ -474,7 +475,7 @@
         </div>
         <div class="container">
             <p>Built with intention by Ako Baloyi</p>
-            <a href="#" class="download-cv">Download One-Page Profile</a>
+            <a href="https://www.linkedin.com/in/ako-baloyi-3985a7218" target="_blank" rel="noopener noreferrer" class="download-cv">LinkedIn →</a>
             <div class="easter-egg" title="Clarity unlocked">🔒</div>
         </div>
     </footer>
