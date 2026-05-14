@@ -1,47 +1,39 @@
-# Ako Baloyi — Portfolio
+# Ako Baloyi · Portfolio
 
-Enterprise-ready static portfolio targeting 2027 Graduate Programmes (Deloitte InfinityX, Entelect, BBD) and Junior SOC Analyst / Software Engineer roles.
+Personal portfolio for Ako Baloyi, final-year BEngSc student at Wits University and Co-Founder of Adigital.
 
 Live at [akobaloyi.github.io](https://akobaloyi.github.io).
 
-## Tech stack
+## Stack
 
-- Vanilla HTML5, CSS3, JavaScript (ES6+)
-- Canvas API for the particle background
-- IntersectionObserver for scroll-reveal animations
-- No frameworks, no build step, no runtime dependencies
+Vanilla HTML, CSS, and JavaScript. No frameworks, no build step, no runtime dependencies. The particle background uses the Canvas API; the scroll reveal uses an IntersectionObserver.
 
-## Local development
+## Run it locally
 
-Serve from the repo root:
+From the repo root:
 
 ```bash
 python -m http.server 8000
-# or
+```
+
+Or:
+
+```bash
 npx serve
 ```
 
-Then open the URL the server prints (usually http://localhost:8000).
+Then open whatever URL the server prints (usually http://localhost:8000).
 
-## Deployment
+## Deploy
 
-GitHub Pages:
+GitHub Pages, off `main`. Push, then enable Pages in repo settings with `main` (root) as the source.
 
-1. Push to `main`.
-2. Repository settings → Pages → set source to `main` (root).
-3. Wait for the deploy and visit the published URL.
+## Files
 
-## OG banner upload (ACTION REQUIRED)
-
-Upload a 1200×630px professional image to `assets/og-banner.jpg` to activate social preview cards. The Open Graph and Twitter Card meta tags in `index.html` already point to that path.
-
-## File map
-
-- `index.html` — single-page site, all sections
-- `styles.css` — all styles, design tokens, responsive rules
-- `script.js` — particle canvas, scroll-reveal, easter eggs
-- `favicon.svg` — site icon
-- `assets/` — static media (currently holds the placeholder `.gitkeep`)
-- `sandbox/` — separate sandbox/learning environment
-- `cloudflare-worker/` — optional Cloudflare Workers backend for chat sandbox
-- `.kiro/` — spec artifacts (requirements, design, tasks) and steering rules
+- `index.html` · single page, all sections
+- `styles.css` · styles and responsive rules
+- `script.js` · particle canvas, scroll reveal, easter eggs
+- `favicon.svg` · site icon
+- `assets/` · static media (drop `og-banner.jpg`, 1200x630, here for social previews)
+- `sandbox/` · separate AI security sandbox
+- `cloudflare-worker/` · Cloudflare Worker proxy for the sandbox chat

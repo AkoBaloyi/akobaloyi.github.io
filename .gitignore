@@ -44,3 +44,6 @@ build/
 # Temporary files
 *.tmp
 *.temp
+
+# Local spec / planning artifacts
+.kiro/

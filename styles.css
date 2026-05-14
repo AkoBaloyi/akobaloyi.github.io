@@ -1415,7 +1415,7 @@ footer p {
         align-items: flex-start;
     }
 
-    /* Enterprise upgrade: collapse Certifications + Skills grids at 768px */
+    /* Stack the certification and skills grids on mobile */
     .cert-grid,
     .skills-grid {
         grid-template-columns: 1fr;
@@ -1442,10 +1442,10 @@ footer p {
     .experience-card { padding: 1.25rem; }
     .experience-role { font-size: 1.15rem; }
 
-    /* Enterprise upgrade: project badge at 480px */
+    /* Project badge */
     .project-badge { font-size: 0.75rem; }
 
-    /* Enterprise upgrade: tighten Certifications + Skills at 480px */
+    /* Tighten certification and skill cards on small screens */
     .cert-card,
     .skill-group {
         padding: 1.25rem;
