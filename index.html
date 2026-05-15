@@ -10,6 +10,7 @@
     <meta property="og:title" content="Ako Baloyi · Co-Founder, Adigital · Software Engineer & Cybersecurity" />
     <meta property="og:description" content="Final-year BEngSc student at Wits and Co-Founder of Adigital. I work across bare-metal AVR Assembly, AWS cloud apps, and live web deployments. Looking for a 2027 graduate programme in software engineering or cybersecurity." />
     <meta property="og:image" content="https://akobaloyi.github.io/assets/og-banner.jpg" />
+    <meta property="og:image:alt" content="Ako Baloyi, Software Engineer and Cybersecurity" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="Ako Baloyi" />
@@ -26,6 +27,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="canonical" href="https://akobaloyi.github.io" />
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -106,8 +108,28 @@
     <!-- Projects -->
     <section id="projects" class="section section-dark">
         <div class="container">
-            <h2 class="section-title fade-in">Things I've Built and Learned From</h2>
+            <h2 class="section-title fade-in">Things I've Built</h2>
             <div class="projects-grid">
+                <div class="project-card fade-in">
+                    <div class="project-content">
+                        <span class="project-badge">Enterprise Systems</span>
+                        <h3>Himpela, Field Asset Inspection Platform</h3>
+                        <p>Offline-first mobile inspection system for field technicians. Built with Go (Chi router), Flutter, PostgreSQL with row-level security, and S3 for media. Handles sync conflicts, tamper-evident audit trails, and works without connectivity.</p>
+                        <p>The hard part was the trust layer: how do you prove an inspection actually happened, at that location, by that person? Solved it with temporal constraints, exponential backoff sync, and a local SQLite queue that reconciles against the server.</p>
+                        <p class="project-result">Production-ready offline-first platform with verifiable inspection records.</p>
+                        <div class="project-tags">
+                            <span>Go</span>
+                            <span>Flutter</span>
+                            <span>PostgreSQL</span>
+                            <span>S3</span>
+                            <span>Offline-First</span>
+                            <span>JWT</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/AkoBaloyi/field-asset-inspection" target="_blank" rel="noopener noreferrer">View Code</a>
+                        </div>
+                    </div>
+                </div>
                 <div class="project-card fade-in">
                     <div class="project-content">
                         <span class="project-badge">Live Deployment</span>
@@ -129,34 +151,40 @@
                 </div>
                 <div class="project-card fade-in">
                     <div class="project-content">
-                        <span class="project-badge">Embedded Systems</span>
-                        <h3>AVR Safe Lock, Bare-Metal Firmware</h3>
-                        <p>The brief was a hardware lock built at the lowest level I could reasonably go: no Arduino library, no HAL. I wrote the whole firmware for an ATmega328P in AVR Assembly, with custom timer and counter setup, I2C peripheral comms, and an interrupt-driven state machine talking straight to the register map.</p>
-                        <p>The point of the project, for me, was to prove I can think at the hardware level: interrupt latency, register constraints, clock prescaling, the timing guarantees you stop seeing once you're in a higher-level language. That's the muscle you need for embedded security and firmware work, and I wanted it on paper.</p>
-                        <p class="project-result">Working interrupt-driven lock, no abstractions in the way.</p>
+                        <span class="project-badge">Cybersecurity</span>
+                        <h3>Email Breach Checker, C++ CLI Tool</h3>
+                        <p>Command-line tool that checks whether an email has appeared in known data breaches via the HaveIBeenPwned API. Written in C++17 with libcurl for HTTPS, nlohmann/json for parsing, and proper error handling for rate limits and auth failures.</p>
+                        <p>Small project, but it shows I can work in C++ outside of coursework, handle real APIs with proper security (env-based key management, HTTPS only), and ship something useful as a standalone binary.</p>
+                        <p class="project-result">Working CLI tool, checks breaches in seconds.</p>
                         <div class="project-tags">
-                            <span>AVR Assembly</span>
-                            <span>ATmega328P</span>
-                            <span>Hardware Interrupts</span>
-                            <span>I2C</span>
-                            <span>Timers</span>
-                            <span>Bare-Metal</span>
+                            <span>C++17</span>
+                            <span>libcurl</span>
+                            <span>HaveIBeenPwned API</span>
+                            <span>CMake</span>
+                            <span>Security</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/AkoBaloyi/email-breach-checker" target="_blank" rel="noopener noreferrer">View Code</a>
                         </div>
                     </div>
                 </div>
                 <div class="project-card fade-in">
                     <div class="project-content">
-                        <span class="project-badge">Cloud &amp; Mobile</span>
-                        <h3>Android + AWS, Cloud-Native Mobile App</h3>
-                        <p>I needed a mobile-first app with a serverless backend that could handle auth, storage, and an API without me over-building it. So I built the Android client and wired it up to AWS services for identity, persistence, and the API layer in between.</p>
-                        <p>The interesting part was the seam between the two: how a mobile client authenticates against a cloud identity provider, how data moves through, and how to design an API that doesn't fall over on a flaky connection.</p>
-                        <p class="project-result">Working cloud-native app, mobile to cloud, end to end.</p>
+                        <span class="project-badge">Full-Stack Game</span>
+                        <h3>Morabaraba, Web-Based Game Platform</h3>
+                        <p>Browser-based implementation of the traditional Morabaraba board game with local play, AI opponents at multiple difficulty levels, online multiplayer via WebSockets, and an Elo rating system. Node.js + Express backend, vanilla JS frontend.</p>
+                        <p>The interesting engineering was the game engine: deterministic state management, move validation, mill detection, and capture logic, all separated cleanly from the rendering layer so the same engine drives both the AI and the multiplayer server.</p>
+                        <p class="project-result">Playable in-browser with AI and online multiplayer.</p>
                         <div class="project-tags">
-                            <span>Android</span>
-                            <span>AWS</span>
-                            <span>Cloud Architecture</span>
-                            <span>REST API</span>
-                            <span>Mobile</span>
+                            <span>JavaScript</span>
+                            <span>Node.js</span>
+                            <span>Express</span>
+                            <span>WebSockets</span>
+                            <span>Game AI</span>
+                            <span>Elo Rating</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/AkoBaloyi/morabaraba-web-based-platform" target="_blank" rel="noopener noreferrer">View Code</a>
                         </div>
                     </div>
                 </div>
@@ -476,6 +504,7 @@
         <div class="container">
             <p>Built with intention by Ako Baloyi</p>
             <a href="https://www.linkedin.com/in/ako-baloyi-3985a7218" target="_blank" rel="noopener noreferrer" class="download-cv">LinkedIn →</a>
+            <a href="assets/Ako-Baloyi-CV.pdf" download class="download-cv" style="margin-left: 1rem;">Download CV</a>
             <div class="easter-egg" title="Clarity unlocked">🔒</div>
         </div>
     </footer>
