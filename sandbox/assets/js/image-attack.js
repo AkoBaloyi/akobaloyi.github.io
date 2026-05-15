@@ -23,7 +23,7 @@ let originalClassification = null;
 // For local development, create a config.js file (gitignored)
 // For production, use a backend proxy or environment variables
 const GEMINI_API_KEY = window.GEMINI_API_KEY || '';
-const GEMINI_VISION_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent';
+const GEMINI_VISION_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 
 // Check if API key is configured
 if (!GEMINI_API_KEY) {

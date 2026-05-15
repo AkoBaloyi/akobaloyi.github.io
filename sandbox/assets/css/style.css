@@ -2,8 +2,8 @@
 :root {
     --bg-primary: #0D0D0D;
     --bg-secondary: #1A1A1A;
-    --neon-cyan: #00E8FF;
-    --neon-purple: #C400FF;
+    --neon-cyan: #70E0FF;
+    --neon-purple: #6C63FF;
     --text-white: #FFFFFF;
     --text-gray: #A0A0A0;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -21,7 +21,7 @@ html {
 }
 
 body {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Inter', 'Space Grotesk', sans-serif;
     background: var(--bg-primary);
     color: var(--text-white);
     line-height: 1.6;
@@ -115,6 +115,43 @@ body {
 .nav-menu a:hover::after,
 .nav-menu a.active::after {
     width: 100%;
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    padding: 0.5rem;
+    background: none;
+    border: none;
+}
+
+.nav-toggle span {
+    width: 24px;
+    height: 2px;
+    background: var(--text-white);
+    transition: var(--transition);
+}
+
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: flex;
+    }
+    .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-secondary);
+        flex-direction: column;
+        padding: 1rem 2rem;
+        border-bottom: 1px solid rgba(0, 232, 255, 0.2);
+    }
+    .nav-menu.active {
+        display: flex;
+    }
 }
 
 /* ===== Hero Section ===== */
@@ -850,6 +887,31 @@ body {
 
 .case-study strong {
     color: var(--neon-cyan);
+}
+
+/* ===== Tips Section ===== */
+.tips-section {
+    padding: 4rem 2rem;
+    background: var(--bg-primary);
+}
+.tips-section .tip-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--neon-cyan);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+.tips-section .tip-card h3 {
+    color: var(--neon-cyan);
+    margin-bottom: 1rem;
+}
+.tips-section .tip-card ul {
+    color: var(--text-gray);
+    line-height: 1.8;
+}
+.tips-section .tips-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 /* ===== Responsive ===== */

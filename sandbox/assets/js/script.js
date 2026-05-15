@@ -48,3 +48,12 @@ cards.forEach(card => {
 console.log('%c🔓 AI Security Sandbox', 'color: #00E8FF; font-size: 24px; font-weight: bold;');
 console.log('%cWelcome, hacker. Ready to break some AI?', 'color: #C400FF; font-size: 14px;');
 console.log('%cBuilt by Ako Baloyi', 'color: #FFFFFF; font-size: 12px;');
+
+// Mobile nav toggle
+const navToggle = document.querySelector('.nav-toggle');
+const navMenu = document.querySelector('.nav-menu');
+if (navToggle && navMenu) {
+    navToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+    });
+}
