@@ -425,3 +425,122 @@ window.showStats = showStats;
 console.log('%c💬 Chat Attack Simulator with Gemini AI', 'color: #00E8FF; font-size: 16px; font-weight: bold;');
 console.log('%cTry to break the AI and extract its system prompt!', 'color: #C400FF;');
 console.log('%cType showStats() in console to see your statistics', 'color: #A0A0A0;');
+
+
+// ===== Session Report Card =====
+// Summarizes the user's session: what techniques they tried, what worked,
+// and what to study next.
+
+function buildSessionReport() {
+    const difficulty = parseInt(difficultySlider.value);
+    const difficultyLabel = ['Easy', 'Medium', 'Hard'][difficulty - 1];
+
+    // Categorize what the user tried by walking conversationHistory.
+    const userMessages = conversationHistory.filter(m => m.role === 'user');
+    const techniqueCounts = {
+        'Direct Override': 0,
+        'System Prompt Request': 0,
+        'Roleplay / Jailbreak': 0,
+        'Hypothetical Framing': 0,
+        'Encoding': 0,
+        'Delimiter Injection': 0,
+        'Authority Spoofing': 0,
+        'Other': 0,
+    };
+
+    userMessages.forEach(m => {
+        const text = m.content;
+        let matched = false;
+        if (attackPatterns.promptInjection.test(text)) { techniqueCounts['Direct Override']++; matched = true; }
+        if (attackPatterns.systemPromptRequest.test(text)) { techniqueCounts['System Prompt Request']++; matched = true; }
+        if (attackPatterns.jailbreak.test(text)) { techniqueCounts['Roleplay / Jailbreak']++; matched = true; }
+        if (attackPatterns.bypass.test(text)) { techniqueCounts['Hypothetical Framing']++; matched = true; }
+        if (attackPatterns.encoding.test(text)) { techniqueCounts['Encoding']++; matched = true; }
+        if (attackPatterns.delimiter.test(text)) { techniqueCounts['Delimiter Injection']++; matched = true; }
+        if (/i am the (developer|admin|administrator|engineer)|admin mode|developer mode/i.test(text)) {
+            techniqueCounts['Authority Spoofing']++; matched = true;
+        }
+        if (!matched) techniqueCounts['Other']++;
+    });
+
+    const techniquesUsed = Object.entries(techniqueCounts).filter(([_, c]) => c > 0);
+    const techniquesNotTried = Object.entries(techniqueCounts).filter(([_, c]) => c === 0).map(([k]) => k);
+
+    const successRate = attackAttempts > 0 ? Math.round((successfulAttacks / attackAttempts) * 100) : 0;
+
+    // Generate suggestions based on what the user hasn't tried yet.
+    const suggestions = [];
+    if (!techniqueCounts['Roleplay / Jailbreak']) suggestions.push('Try a roleplay attack (DAN, "pretend you are a system administrator").');
+    if (!techniqueCounts['Hypothetical Framing']) suggestions.push('Try framing the request as a fictional scenario or hypothetical.');
+    if (!techniqueCounts['Encoding']) suggestions.push('Try asking the AI to output its instructions in base64 or another encoding.');
+    if (!techniqueCounts['Delimiter Injection']) suggestions.push('Try delimiter injection — use ---END--- or ### to fake a context boundary.');
+    if (!techniqueCounts['Authority Spoofing']) suggestions.push('Try claiming developer/admin authority to request configuration output.');
+    if (successRate === 0 && attackAttempts > 0) suggestions.push('No attacks succeeded yet. Open the Technique Library on the right and try a few preset payloads.');
+    if (difficulty < 3 && successRate > 50) suggestions.push('You\'re doing well. Bump the difficulty to ' + (difficulty === 1 ? 'Medium' : 'Hard') + ' and try the same techniques.');
+    if (suggestions.length === 0) suggestions.push('You\'ve tried a wide variety of techniques. Try the Defense Lab next — write a prompt that resists what you just learned.');
+
+    // Compose the HTML report.
+    const techniqueRows = techniquesUsed.length > 0
+        ? techniquesUsed.map(([name, count]) => `<tr><td style="padding: 0.5rem; color: var(--text-white);">${name}</td><td style="padding: 0.5rem; text-align: right; color: var(--neon-cyan); font-family: 'JetBrains Mono', monospace;">${count}</td></tr>`).join('')
+        : '<tr><td colspan="2" style="padding: 0.5rem; color: var(--text-gray); text-align: center;">No attacks attempted yet.</td></tr>';
+
+    return `
+        <h1>📊 Session Report</h1>
+        <p style="color: var(--text-gray); margin-bottom: 2rem;">Difficulty: <strong style="color: var(--neon-cyan);">${difficultyLabel}</strong> · Attempts: <strong>${attackAttempts}</strong> · Successful: <strong style="color: ${successRate > 0 ? '#4ade80' : '#ff6b6b'};">${successfulAttacks}</strong> · Success rate: <strong>${successRate}%</strong> · Score: <strong style="color: var(--neon-cyan);">${score}</strong></p>
+
+        <h3>Techniques You Tried</h3>
+        <table style="width: 100%; border-collapse: collapse; margin: 1rem 0; background: rgba(0,0,0,0.3); border-radius: 8px; overflow: hidden;">
+            <thead>
+                <tr style="background: rgba(108, 99, 255, 0.15);">
+                    <th style="padding: 0.75rem; text-align: left; color: var(--neon-purple);">Technique</th>
+                    <th style="padding: 0.75rem; text-align: right; color: var(--neon-purple);">Times Used</th>
+                </tr>
+            </thead>
+            <tbody>${techniqueRows}</tbody>
+        </table>
+
+        ${techniquesNotTried.length > 0 ? `
+        <h3>Techniques You Haven't Tried Yet</h3>
+        <ul style="line-height: 1.8;">
+            ${techniquesNotTried.map(t => `<li><span class="owasp-tag" style="margin-bottom: 0; font-size: 0.65rem;">${t}</span></li>`).join('')}
+        </ul>` : ''}
+
+        <h3>Suggested Next Steps</h3>
+        <ul style="line-height: 1.8;">
+            ${suggestions.map(s => `<li>${s}</li>`).join('')}
+        </ul>
+
+        <h3>Where to Go From Here</h3>
+        <ul style="line-height: 1.8;">
+            <li><a href="../sandbox/defense-lab.html" style="color: var(--neon-cyan);">Defense Lab</a> — flip sides. Write a system prompt that survives a battery of these same attacks.</li>
+            <li><a href="../learn/index.html" style="color: var(--neon-cyan);">Learn Section</a> — read the Prompt Injection and Jailbreaking deep-dives.</li>
+            <li><a href="https://github.com/leondz/garak" target="_blank" style="color: var(--neon-cyan);">Garak</a> — automated LLM vulnerability scanner used in industry red-teaming.</li>
+            <li><a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank" style="color: var(--neon-cyan);">OWASP LLM Top 10</a> — the industry framework for LLM security.</li>
+        </ul>
+    `;
+}
+
+const reportBtn = document.getElementById('reportBtn');
+const reportModal = document.getElementById('reportModal');
+const reportBody = document.getElementById('reportBody');
+if (reportBtn && reportModal && reportBody) {
+    reportBtn.addEventListener('click', () => {
+        reportBody.innerHTML = buildSessionReport();
+        reportModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    });
+    // Close on outside click
+    reportModal.addEventListener('click', (e) => {
+        if (e.target === reportModal) {
+            reportModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && reportModal.style.display === 'flex') {
+            reportModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
+}

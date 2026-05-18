@@ -897,3 +897,13 @@ canvas {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+
+.report-btn-small {
+    border-color: var(--neon-purple);
+    color: var(--neon-purple);
+}
+.report-btn-small:hover {
+    background: var(--neon-purple);
+    color: var(--bg-primary);
+}

@@ -51,6 +51,7 @@
                     <input type="text" id="userInput" placeholder="Type your attack here..." />
                     <button id="sendBtn">Send</button>
                     <button id="resetBtn" class="reset-btn-small">🔄 New Conversation</button>
+                    <button id="reportBtn" class="reset-btn-small report-btn-small">📊 Session Report</button>
                 </div>
             </div>
 
@@ -91,6 +92,14 @@
             </div>
         </div>
     </section>
+
+    <!-- Session Report Modal -->
+    <div id="reportModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="modal-close" onclick="document.getElementById('reportModal').style.display='none'">&times;</span>
+            <div id="reportBody"></div>
+        </div>
+    </div>
 
     <!-- Load API config (gitignored, for local dev only) -->
     <script src="../config.js"></script>
