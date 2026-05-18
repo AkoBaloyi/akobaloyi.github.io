@@ -186,11 +186,13 @@ async function applyAdversarialAttack() {
         
         if (attack === 'random') {
             perturbation = (Math.random() - 0.5) * strength * 2;
-        } else if (attack === 'targeted') {
-            // Simulate targeted attack with directional noise
+        } else if (attack === 'patterned') {
+            // Sinusoidal patterned noise (a visual approximation, not a real
+            // gradient-based targeted attack — see the explainer banner).
             perturbation = (Math.sin(i / 1000) * strength);
-        } else if (attack === 'gradient') {
-            // Simulate gradient-based attack
+        } else if (attack === 'frequency') {
+            // Cosine-based frequency-domain noise (a visual approximation,
+            // not a real gradient attack — see the explainer banner).
             perturbation = (Math.cos(i / 500) * strength);
         }
         

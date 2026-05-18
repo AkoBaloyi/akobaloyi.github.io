@@ -7,7 +7,7 @@ const chartCtx = accuracyChart.getContext('2d');
 
 let dataset = [];
 let poisonedIndices = new Set();
-let accuracyHistory = [100];
+let accuracyHistory = [];
 let baselineAccuracy = 100;
 
 // Initialize clean dataset
@@ -113,70 +113,129 @@ function addPoison() {
     updateStats();
 }
 
-function trainModel() {
+// ===== Real Neural Network Training with TF.js =====
+// Architecture: 2 inputs (x, y) -> 8 hidden (relu) -> 2 outputs (softmax)
+// This is a tiny 2-layer net, but it's REAL training with backprop, loss
+// curves, and decision-boundary shifts based on the (poisoned) data.
+
+let trainedModel = null;
+
+async function trainModel() {
+    if (typeof tf === 'undefined') {
+        alert('TensorFlow.js failed to load. Check your network connection.');
+        return;
+    }
+
     const trainingProgress = document.getElementById('trainingProgress');
     const progressFill = document.getElementById('progressFill');
     const progressText = document.getElementById('progressText');
-    
     trainingProgress.style.display = 'block';
-    
-    let progress = 0;
-    const interval = setInterval(() => {
-        progress += 10;
-        progressFill.style.width = progress + '%';
-        progressText.textContent = `Training... ${progress}%`;
-        
-        if (progress >= 100) {
-            clearInterval(interval);
-            progressText.textContent = 'Training Complete!';
-            setTimeout(() => {
-                trainingProgress.style.display = 'none';
-                calculateAccuracy();
-            }, 500);
-        }
-    }, 200);
-}
+    progressFill.style.width = '0%';
+    progressText.textContent = 'Building model...';
 
-function calculateAccuracy() {
-    const poisonPercent = parseInt(document.getElementById('poisonPercent').value);
-    const poisonType = document.getElementById('poisonType').value;
-    
-    // Simulate accuracy drop based on poison
-    let accuracyDrop = 0;
-    
-    if (poisonType === 'label-flip') {
-        accuracyDrop = poisonPercent * 1.5; // More severe
-    } else if (poisonType === 'backdoor') {
-        accuracyDrop = poisonPercent * 0.5; // Subtle but dangerous
-    } else {
-        accuracyDrop = poisonPercent * 1.0;
+    // Build a fresh model so retraining starts from scratch.
+    const model = tf.sequential();
+    model.add(tf.layers.dense({ inputShape: [2], units: 8, activation: 'relu' }));
+    model.add(tf.layers.dense({ units: 2, activation: 'softmax' }));
+    model.compile({
+        optimizer: tf.train.adam(0.01),
+        loss: 'categoricalCrossentropy',
+        metrics: ['accuracy']
+    });
+
+    // Normalize coordinates to roughly [0, 1] so training is stable.
+    const xs = tf.tensor2d(dataset.map(s => [s.x / 400, s.y / 400]));
+    const ys = tf.tensor2d(dataset.map(s => s.class === 0 ? [1, 0] : [0, 1]));
+
+    const epochs = 30;
+    let lastAccuracy = 1.0;
+
+    await model.fit(xs, ys, {
+        epochs,
+        batchSize: 16,
+        shuffle: true,
+        callbacks: {
+            onEpochEnd: (epoch, logs) => {
+                const pct = Math.round(((epoch + 1) / epochs) * 100);
+                progressFill.style.width = pct + '%';
+                progressText.textContent = `Training epoch ${epoch + 1}/${epochs} · loss ${logs.loss.toFixed(3)} · acc ${(logs.acc * 100).toFixed(1)}%`;
+                lastAccuracy = logs.acc;
+                accuracyHistory.push(logs.acc * 100);
+                drawAccuracyChart();
+            }
+        }
+    });
+
+    // Evaluate on a held-out clean test set so backdoor success is meaningful.
+    const cleanTestPoints = generateCleanTestSet(40);
+    const testXs = tf.tensor2d(cleanTestPoints.map(p => [p.x / 400, p.y / 400]));
+    const preds = model.predict(testXs);
+    const predLabels = await preds.argMax(1).data();
+    let correct = 0;
+    cleanTestPoints.forEach((p, i) => {
+        if (predLabels[i] === p.class) correct++;
+    });
+    const cleanAccuracy = (correct / cleanTestPoints.length) * 100;
+
+    // For backdoor: test the trigger location (350, 50) — it should classify
+    // as class 1 if the backdoor took.
+    let backdoorRate = null;
+    if (document.getElementById('poisonType').value === 'backdoor') {
+        const triggerXs = tf.tensor2d([[350 / 400, 50 / 400]]);
+        const triggerPred = model.predict(triggerXs);
+        const triggerLabel = (await triggerPred.argMax(1).data())[0];
+        backdoorRate = triggerLabel === 1 ? 100 : 0;
+        triggerXs.dispose();
+        triggerPred.dispose();
     }
-    
-    const newAccuracy = Math.max(50, baselineAccuracy - accuracyDrop);
-    accuracyHistory.push(newAccuracy);
-    
-    // Update metrics
-    document.getElementById('accuracy').textContent = newAccuracy.toFixed(1) + '%';
-    document.getElementById('accuracy').style.color = newAccuracy > 80 ? '#4ade80' : '#ff6b6b';
-    
-    const loss = (100 - newAccuracy) / 100 * 2;
-    document.getElementById('loss').textContent = loss.toFixed(3);
-    
+
+    // Cleanup tensors.
+    xs.dispose();
+    ys.dispose();
+    testXs.dispose();
+    preds.dispose();
+
+    trainedModel = model;
+
+    // Update metrics with REAL numbers from real training.
+    const lossValue = (1 - lastAccuracy);
+    document.getElementById('accuracy').textContent = cleanAccuracy.toFixed(1) + '%';
+    document.getElementById('accuracy').style.color = cleanAccuracy > 80 ? '#4ade80' : '#ff6b6b';
+    document.getElementById('loss').textContent = lossValue.toFixed(3);
+
+    const baselineAccuracy = 100;
+    const accuracyDrop = Math.max(0, baselineAccuracy - cleanAccuracy);
     document.getElementById('accuracyDrop').textContent = accuracyDrop.toFixed(1) + '%';
-    
-    if (poisonType === 'backdoor') {
-        document.getElementById('backdoorSuccess').textContent = poisonPercent > 10 ? 'High' : 'Medium';
-        document.getElementById('backdoorSuccess').style.color = poisonPercent > 10 ? '#ff6b6b' : '#ffa500';
+
+    if (backdoorRate !== null) {
+        document.getElementById('backdoorSuccess').textContent = backdoorRate + '%';
+        document.getElementById('backdoorSuccess').style.color = backdoorRate > 50 ? '#ff6b6b' : '#4ade80';
     } else {
         document.getElementById('backdoorSuccess').textContent = 'N/A';
+        document.getElementById('backdoorSuccess').style.color = '';
     }
-    
+
+    const poisonPercent = parseInt(document.getElementById('poisonPercent').value);
     const difficulty = poisonPercent < 10 ? 'High' : poisonPercent < 25 ? 'Medium' : 'Low';
     document.getElementById('detectionDiff').textContent = difficulty;
-    document.getElementById('detectionDiff').style.color = 
+    document.getElementById('detectionDiff').style.color =
         difficulty === 'High' ? '#ff6b6b' : difficulty === 'Medium' ? '#ffa500' : '#4ade80';
-    
-    drawAccuracyChart();
+
+    progressText.textContent = `Training complete · clean accuracy ${cleanAccuracy.toFixed(1)}%`;
+    setTimeout(() => {
+        trainingProgress.style.display = 'none';
+    }, 1500);
+}
+
+function generateCleanTestSet(n) {
+    // Generate n clean (un-poisoned) samples in the same distribution as
+    // the original training data. Used to measure clean accuracy honestly.
+    const points = [];
+    for (let i = 0; i < n / 2; i++) {
+        points.push({ x: Math.random() * 150 + 50, y: Math.random() * 150 + 50, class: 0 });
+        points.push({ x: Math.random() * 150 + 200, y: Math.random() * 150 + 200, class: 1 });
+    }
+    return points;
 }
 
 function drawAccuracyChart() {
@@ -244,7 +303,7 @@ function updateStats() {
 
 function resetDataset() {
     initializeDataset();
-    accuracyHistory = [100];
+    accuracyHistory = [];
     document.getElementById('accuracy').textContent = '100%';
     document.getElementById('accuracy').style.color = '#4ade80';
     document.getElementById('loss').textContent = '0.05';

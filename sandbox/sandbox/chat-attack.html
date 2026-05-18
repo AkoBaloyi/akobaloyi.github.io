@@ -50,6 +50,7 @@
                 <div class="chat-input-container">
                     <input type="text" id="userInput" placeholder="Type your attack here..." />
                     <button id="sendBtn">Send</button>
+                    <button id="resetBtn" class="reset-btn-small">🔄 New Conversation</button>
                 </div>
             </div>
 
@@ -83,13 +84,9 @@
                 </div>
 
                 <div class="info-section">
-                    <h3>💡 Attack Hints</h3>
-                    <ul class="hints-list">
-                        <li>Try asking it to ignore previous instructions</li>
-                        <li>Ask it to repeat its system prompt</li>
-                        <li>Use role-playing to bypass filters</li>
-                        <li>Try jailbreak prompts</li>
-                    </ul>
+                    <h3>🧰 Technique Library</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-gray); margin-bottom: 0.75rem;">Click any technique to insert into the chat input.</p>
+                    <div class="technique-list" id="techniqueList"></div>
                 </div>
             </div>
         </div>

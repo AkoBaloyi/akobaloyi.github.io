@@ -616,3 +616,284 @@ canvas {
         grid-template-columns: 1fr;
     }
 }
+
+/* ===== Reset Conversation Button (Chat Attack) ===== */
+.reset-btn-small {
+    background: transparent;
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-left: 0.5rem;
+    transition: var(--transition);
+}
+
+.reset-btn-small:hover {
+    background: var(--neon-cyan);
+    color: var(--bg-primary);
+}
+
+/* ===== Technique Library (Chat Attack info panel) ===== */
+.technique-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.technique-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.technique-category {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--neon-cyan);
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+}
+
+.technique-btn {
+    background: var(--bg-secondary);
+    border: 1px solid rgba(108, 99, 255, 0.2);
+    color: var(--text-white);
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    text-align: left;
+    transition: var(--transition);
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.4;
+}
+
+.technique-btn:hover {
+    border-color: var(--neon-cyan);
+    background: rgba(112, 224, 255, 0.05);
+    transform: translateX(2px);
+}
+
+.technique-easy { border-left: 3px solid #4ade80; }
+.technique-medium { border-left: 3px solid #ffa500; }
+.technique-hard { border-left: 3px solid #ff6b6b; }
+
+/* ===== Defense Lab ===== */
+.defense-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+.defense-input-panel,
+.defense-results-panel {
+    background: var(--bg-secondary);
+    border: 1px solid rgba(108, 99, 255, 0.3);
+    border-radius: 12px;
+    padding: 1.75rem;
+}
+.defense-input-panel h3,
+.defense-results-panel h3 {
+    color: var(--neon-cyan);
+    margin-bottom: 0.75rem;
+}
+.defense-hint {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+#defensePrompt {
+    width: 100%;
+    background: var(--bg-primary);
+    border: 1px solid rgba(108, 99, 255, 0.3);
+    border-radius: 8px;
+    color: var(--text-white);
+    padding: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    resize: vertical;
+    min-height: 200px;
+}
+#defensePrompt:focus {
+    outline: none;
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 10px rgba(112, 224, 255, 0.3);
+}
+.defense-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: end;
+    margin-top: 1.25rem;
+    flex-wrap: wrap;
+}
+.defense-controls label {
+    display: block;
+    color: var(--neon-purple);
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+}
+.defense-controls select {
+    padding: 0.6rem 1rem;
+    background: var(--bg-primary);
+    border: 1px solid rgba(108, 99, 255, 0.3);
+    border-radius: 6px;
+    color: var(--text-white);
+    font-family: inherit;
+}
+.defense-btn {
+    padding: 0.8rem 1.5rem;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-left: auto;
+}
+.defense-btn:hover:not(:disabled) {
+    box-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
+    transform: translateY(-2px);
+}
+.defense-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.defense-info {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(108, 99, 255, 0.05);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: var(--text-gray);
+}
+.defense-info ul {
+    margin-top: 0.5rem;
+    margin-left: 1.5rem;
+    line-height: 1.7;
+}
+.defense-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.summary-stat {
+    text-align: center;
+    background: var(--bg-primary);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(108, 99, 255, 0.2);
+}
+.summary-value {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--neon-cyan);
+}
+.summary-label {
+    font-size: 0.75rem;
+    color: var(--text-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0.25rem;
+}
+.defense-results-list {
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+.defense-empty {
+    color: var(--text-gray);
+    text-align: center;
+    padding: 2rem;
+}
+.defense-result {
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    border-left: 4px solid;
+    background: var(--bg-primary);
+}
+.defense-result.blocked {
+    border-left-color: #4ade80;
+}
+.defense-result.leaked {
+    border-left-color: #ff6b6b;
+}
+.defense-result-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+}
+.defense-result-num {
+    color: var(--text-gray);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+}
+.defense-result-cat {
+    background: rgba(108, 99, 255, 0.15);
+    color: var(--neon-purple);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+}
+.defense-result-status {
+    margin-left: auto;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+.defense-result.blocked .defense-result-status { color: #4ade80; }
+.defense-result.leaked .defense-result-status { color: #ff6b6b; }
+.defense-result details {
+    margin-top: 0.5rem;
+}
+.defense-result summary {
+    cursor: pointer;
+    color: var(--neon-cyan);
+    font-size: 0.85rem;
+    padding: 0.25rem 0;
+}
+.defense-result-detail {
+    margin-top: 0.5rem;
+    padding: 0.75rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+.defense-result-detail pre {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 0.6rem;
+    border-radius: 4px;
+    color: var(--text-white);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 0.4rem 0;
+}
+.defense-result-detail strong {
+    color: var(--neon-cyan);
+    font-size: 0.85rem;
+}
+@media (max-width: 1024px) {
+    .defense-layout {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 600px) {
+    .defense-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

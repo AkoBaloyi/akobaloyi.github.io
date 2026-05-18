@@ -132,8 +132,16 @@
             <h3>💡 Understanding Data Poisoning</h3>
             <p>Data poisoning attacks corrupt the training data to manipulate model behavior. Attackers can flip labels, inject backdoors, or subtly modify features to cause targeted misclassifications while maintaining overall accuracy. This is one of the most dangerous attacks in machine learning.</p>
         </div>
+
+        <div class="info-box" style="border-color: var(--neon-purple); margin-top: 1.5rem;">
+            <h3 style="color: var(--neon-purple);">🧠 What's Actually Happening Under the Hood</h3>
+            <p>This lab trains a real <strong>2-layer neural network</strong> in your browser using <a href="https://www.tensorflow.org/js" target="_blank" style="color: var(--neon-cyan);">TensorFlow.js</a>: 2 input features (x, y) → 8 hidden ReLU units → 2 softmax outputs.</p>
+            <p style="margin-top: 0.75rem;">When you click <strong>Train Model</strong>, it runs 30 epochs of Adam optimization on the (possibly poisoned) dataset and then evaluates on a held-out clean test set. That's why backdoor attacks show high attack success on the trigger location while keeping clean accuracy reasonable: a real model genuinely learns both behaviors.</p>
+        </div>
     </section>
 
+    <!-- TensorFlow.js for real in-browser training -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.17.0/dist/tf.min.js"></script>
     <script src="../config.js"></script>
     <script src="../assets/js/data-poison.js"></script>
 </body>

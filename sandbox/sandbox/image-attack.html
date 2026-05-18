@@ -71,9 +71,9 @@
                 <div class="control-group">
                     <label>Attack Type</label>
                     <select id="attackType">
-                        <option value="random">Random Noise</option>
-                        <option value="targeted">Targeted Attack</option>
-                        <option value="gradient">Gradient-based</option>
+                        <option value="random">Random Noise (uniform)</option>
+                        <option value="patterned">Patterned Noise (sinusoidal)</option>
+                        <option value="frequency">Frequency-domain Noise</option>
                     </select>
                 </div>
 
@@ -131,6 +131,17 @@
         <div class="info-box">
             <h3>💡 How Adversarial Attacks Work</h3>
             <p>Adversarial attacks add carefully crafted noise to images that are invisible to humans but cause AI models to misclassify them. These attacks expose fundamental vulnerabilities in neural networks and are crucial for understanding AI security.</p>
+        </div>
+
+        <div class="info-box" style="border-color: var(--neon-purple); margin-top: 1.5rem;">
+            <h3 style="color: var(--neon-purple);">⚠️ How This Lab Differs From Real Adversarial Attacks</h3>
+            <p>The perturbations in this lab are <strong>visual approximations</strong>, not real adversarial attacks.</p>
+            <ul style="margin-top: 1rem; line-height: 1.8;">
+                <li><strong>Real FGSM/PGD/C&amp;W attacks</strong> compute gradients through the target model's loss function. They require white-box access (knowing the model's architecture and weights) and use backpropagation to find pixel changes that maximize misclassification.</li>
+                <li><strong>This lab</strong> applies random or patterned noise without any model knowledge. You may see Gemini Vision misclassify with high noise, but a real adversarial example would change classification with imperceptible perturbation.</li>
+                <li><strong>Why this matters:</strong> The danger of adversarial ML isn't that noise breaks classifiers. It's that a tiny, targeted gradient-direction nudge can flip a 99% confident prediction without any visible change.</li>
+                <li><strong>To experiment with real attacks</strong>, see <a href="https://github.com/cleverhans-lab/cleverhans" target="_blank" style="color: var(--neon-cyan);">CleverHans</a>, <a href="https://github.com/Trusted-AI/adversarial-robustness-toolbox" target="_blank" style="color: var(--neon-cyan);">ART (Adversarial Robustness Toolbox)</a>, or read the <a href="https://arxiv.org/abs/1412.6572" target="_blank" style="color: var(--neon-cyan);">FGSM paper (Goodfellow et al., 2014)</a>.</li>
+            </ul>
         </div>
     </section>
 

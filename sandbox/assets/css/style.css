@@ -655,6 +655,29 @@ body {
     margin-bottom: 1rem;
 }
 
+.owasp-tag {
+    display: inline-block;
+    background: rgba(108, 99, 255, 0.15);
+    border: 1px solid rgba(108, 99, 255, 0.4);
+    color: var(--neon-purple);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.learn-cta {
+    color: var(--neon-cyan);
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: block;
+    margin-top: 0.75rem;
+}
+
 .coming-soon {
     display: inline-block;
     padding: 0.5rem 1rem;

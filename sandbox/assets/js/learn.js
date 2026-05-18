@@ -39,6 +39,14 @@ const learnContent = {
             <div class="tip-box">
                 <strong>💡 Pro Tip:</strong> Start with easy mode to understand the basics, then progress to harder difficulties as you learn more sophisticated techniques.
             </div>
+
+            <h3>Further Reading</h3>
+            <ul>
+                <li><a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank">OWASP LLM Top 10 (LLM01: Prompt Injection)</a></li>
+                <li><a href="https://simonwillison.net/series/prompt-injection/" target="_blank">Simon Willison's Prompt Injection Archive</a></li>
+                <li><a href="https://github.com/leondz/garak" target="_blank">Garak — LLM vulnerability scanner</a></li>
+                <li><a href="https://arxiv.org/abs/2302.12173" target="_blank">"Not what you've signed up for" (Indirect Prompt Injection paper)</a></li>
+            </ul>
         `
     },
     
@@ -84,6 +92,14 @@ const learnContent = {
             
             <h3>Try It Yourself</h3>
             <p>Experiment with the <a href="../sandbox/image-attack.html">Image Attack Simulator</a> to see how small perturbations can fool AI vision models.</p>
+
+            <h3>Further Reading</h3>
+            <ul>
+                <li><a href="https://arxiv.org/abs/1412.6572" target="_blank">Goodfellow et al. — Explaining and Harnessing Adversarial Examples (FGSM)</a></li>
+                <li><a href="https://arxiv.org/abs/1608.04644" target="_blank">Carlini & Wagner — Towards Evaluating the Robustness of Neural Networks</a></li>
+                <li><a href="https://github.com/cleverhans-lab/cleverhans" target="_blank">CleverHans — adversarial example library</a></li>
+                <li><a href="https://github.com/Trusted-AI/adversarial-robustness-toolbox" target="_blank">IBM ART — Adversarial Robustness Toolbox</a></li>
+            </ul>
         `
     },
     
@@ -137,6 +153,13 @@ const learnContent = {
             
             <h3>Try It Yourself</h3>
             <p>Use the <a href="../sandbox/data-poison.html">Data Poisoning Playground</a> to see how corrupted training data affects model accuracy.</p>
+
+            <h3>Further Reading</h3>
+            <ul>
+                <li><a href="https://arxiv.org/abs/1708.06733" target="_blank">BadNets — Identifying Vulnerabilities in the ML Supply Chain</a></li>
+                <li><a href="https://arxiv.org/abs/2103.05847" target="_blank">Manipulating SGD with Data Ordering (training-time attacks)</a></li>
+                <li><a href="https://github.com/pyrra-dev/pyrra" target="_blank">MITRE ATLAS — Adversarial Threat Landscape for AI Systems</a></li>
+            </ul>
         `
     },
     
@@ -203,6 +226,13 @@ const learnContent = {
                 <li><strong>OWASP Top 10 for LLMs:</strong> Common vulnerabilities and mitigations</li>
                 <li><strong>NIST AI Risk Management:</strong> Framework for AI security</li>
                 <li><strong>MLSecOps:</strong> Security practices for ML pipelines</li>
+            </ul>
+
+            <h3>Further Reading</h3>
+            <ul>
+                <li><a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank">NIST AI Risk Management Framework</a></li>
+                <li><a href="https://owasp.org/www-project-machine-learning-security-top-10/" target="_blank">OWASP Machine Learning Security Top 10</a></li>
+                <li><a href="https://atlas.mitre.org/" target="_blank">MITRE ATLAS — adversarial AI tactics & techniques matrix</a></li>
             </ul>
         `
     },
@@ -273,6 +303,13 @@ const learnContent = {
             
             <h3>Try It Yourself</h3>
             <p>Practice ethical jailbreaking in the <a href="../sandbox/chat-attack.html">Chat Attack Simulator</a> to understand these techniques better.</p>
+
+            <h3>Further Reading</h3>
+            <ul>
+                <li><a href="https://arxiv.org/abs/2307.15043" target="_blank">Universal and Transferable Adversarial Attacks on LLMs (GCG)</a></li>
+                <li><a href="https://www.jailbreakchat.com/" target="_blank">Jailbreak Chat — community jailbreak archive</a></li>
+                <li><a href="https://github.com/llm-attacks/llm-attacks" target="_blank">llm-attacks — Reference implementation of jailbreak research</a></li>
+            </ul>
         `
     },
     
@@ -348,6 +385,13 @@ const learnContent = {
                     <li>AI security conferences (DEF CON AI Village)</li>
                 </ul>
             </div>
+
+            <h3>Further Reading</h3>
+            <ul>
+                <li><a href="https://incidentdatabase.ai/" target="_blank">AI Incident Database</a></li>
+                <li><a href="https://atlas.mitre.org/studies/" target="_blank">MITRE ATLAS Case Studies</a></li>
+                <li><a href="https://www.defcon.org/html/defcon-31/dc-31-villages.html#aivillage" target="_blank">DEF CON AI Village</a></li>
+            </ul>
         `
     }
 };
