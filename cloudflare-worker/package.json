@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "tail": "wrangler tail"
+    "tail": "wrangler tail",
+    "test": "vitest run"
   },
   "keywords": [
     "cloudflare",
@@ -18,6 +19,9 @@
   "author": "Ako Baloyi",
   "license": "MIT",
   "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.4.31",
+    "fast-check": "^3",
+    "vitest": "^1.5.0",
     "wrangler": "^3.0.0"
   }
 }

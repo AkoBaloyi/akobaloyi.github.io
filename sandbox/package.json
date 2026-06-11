@@ -1,0 +1,14 @@
+{
+  "name": "aisec-sandbox-tests",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "^1",
+    "fast-check": "^3",
+    "jsdom": "^24"
+  }
+}

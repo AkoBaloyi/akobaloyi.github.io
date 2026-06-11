@@ -1,10 +1,19 @@
-// API Configuration Template
-// Copy this file to config.js and add your API key
+// Frontend configuration for the AI Security Sandbox.
+//
+// The Gemini API key is NEVER stored here or anywhere that ships to the
+// browser. It lives only as a Cloudflare Worker secret. The frontend talks to
+// the Worker, which injects the key server-side.
+//
+// Setup:
+// 1. Copy this file to config.js (config.js is gitignored).
+// 2. Set AISEC_WORKER_URL to your deployed Worker origin (no trailing slash),
+//    e.g. https://gemini-proxy-worker.YOUR_SUBDOMAIN.workers.dev
+// 3. (Optional, local dev only) set SANDBOX_DEV_TOKEN to the value you set via
+//    `wrangler secret put SANDBOX_DEV_TOKEN`, so requests from localhost pass
+//    the Worker's auth check. In production the Worker authorizes by Origin,
+//    so the token is not needed on the deployed site.
 
-// Get your Gemini API key from: https://makersuite.google.com/app/apikey
-window.GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY_HERE';
+window.AISEC_WORKER_URL = 'https://gemini-proxy-worker.YOUR_SUBDOMAIN.workers.dev';
 
-// Instructions:
-// 1. Copy this file: cp config.example.js config.js
-// 2. Replace YOUR_GEMINI_API_KEY_HERE with your actual key
-// 3. Never commit config.js to GitHub (it's in .gitignore)
+// Optional, for local development against the Worker:
+// window.SANDBOX_DEV_TOKEN = 'your-dev-token-here';

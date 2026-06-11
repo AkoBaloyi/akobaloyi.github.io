@@ -907,3 +907,493 @@ canvas {
     background: var(--neon-purple);
     color: var(--bg-primary);
 }
+
+
+/* ===== Gandalf Mode (game tab) ===== */
+/*
+ * All game-specific rules below are scoped under #panel-game so nothing
+ * leaks into the Free Play panel or the rest of the site (REQ-10 §3).
+ * Exceptions, by design:
+ *   - .chat-tabs / .chat-tab : the tab strip lives outside the panels
+ *     (sibling under .sandbox-container), so it is scoped to .chat-tabs.
+ *   - .visually-hidden        : a generic a11y utility, intentionally global.
+ *   - @keyframes victory-glow : keyframes are global by nature; the name is
+ *     unique to this feature.
+ * Color tokens are reused from style.css :root (--neon-cyan, --neon-purple,
+ * --bg-primary, --bg-secondary, --text-white, --text-gray). No new tokens
+ * are defined (REQ-10 §3).
+ *
+ * Level-state perceptual channels (REQ-2 §2): three independent channels are
+ * used so state never relies on color alone — (1) border-color via
+ * data-state, (2) the real .level-icon glyph rendered by the JS (task 22),
+ * and (3) the .level-state-label text. We style .level-icon / .level-state-label
+ * rather than ::before, because the glyph already exists in the DOM; ::before
+ * is left unused to avoid a duplicate glyph.
+ */
+
+/* --- Generic a11y utility (global, added once; absent elsewhere) --- */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- Tab strip (scoped to .chat-tabs, lives outside the panels) --- */
+.chat-tabs {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(112, 224, 255, 0.2);
+  margin-bottom: 1.5rem;
+}
+
+.chat-tab {
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-gray);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.chat-tab:hover {
+  color: var(--text-white);
+}
+
+.chat-tab[aria-selected="true"] {
+  color: var(--neon-cyan);
+  border-bottom-color: var(--neon-cyan);
+}
+
+.chat-tab:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 1px;
+}
+
+/* --- Game toolbar --- */
+#panel-game .game-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+#panel-game #resetProgressBtn {
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--text-gray);
+  color: var(--text-gray);
+  border-radius: 8px;
+  padding: 0.45rem 1rem;
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+#panel-game #resetProgressBtn:hover {
+  color: var(--text-white);
+  border-color: var(--text-white);
+}
+
+#panel-game #resetProgressBtn:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 1px;
+}
+
+/* --- Level selector strip --- */
+#panel-game .level-selector-host {
+  margin-bottom: 1.5rem;
+}
+
+#panel-game .level-selector {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+#panel-game .level-entry {
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  flex: 1 1 auto;
+  min-width: 88px;
+  padding: 0.75rem 0.5rem;
+  background: var(--bg-secondary);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  color: var(--text-white);
+  font-family: 'Space Grotesk', sans-serif;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#panel-game .level-entry .level-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+#panel-game .level-entry .level-number {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+#panel-game .level-entry .level-state-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-gray);
+}
+
+/* State channel 1: border color (REQ-2 §2) */
+#panel-game .level-entry[data-state="cleared"] {
+  border-color: var(--neon-cyan);
+}
+
+#panel-game .level-entry[data-state="cleared"] .level-state-label {
+  color: var(--neon-cyan);
+}
+
+#panel-game .level-entry[data-state="current"] {
+  border-color: var(--neon-purple);
+}
+
+#panel-game .level-entry[data-state="current"] .level-state-label {
+  color: var(--neon-purple);
+}
+
+#panel-game .level-entry[data-state="locked"] {
+  border-color: #555;
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+#panel-game .level-entry[data-state="cleared"]:hover,
+#panel-game .level-entry[data-state="current"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(112, 224, 255, 0.15);
+}
+
+/* Focus indicator: 2px cyan outline, 1px offset. Cyan (#70E0FF) on the
+   near-black bg (#0D0D0D) exceeds 3:1 contrast (REQ-9 §1). */
+#panel-game .level-entry:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 1px;
+}
+
+/* --- Locked message --- */
+#panel-game .level-locked-msg {
+  margin-top: 0.75rem;
+  padding: 0.6rem 0.9rem;
+  background: rgba(196, 0, 255, 0.08);
+  border-left: 3px solid var(--neon-purple);
+  border-radius: 4px;
+  color: var(--text-white);
+  font-size: 0.9rem;
+}
+
+/* --- Level disclaimer: only visible at >= 1280x720 (REQ-11 §4) --- */
+#panel-game .level-disclaimer {
+  display: none;
+  margin-top: 0.75rem;
+  color: var(--text-gray);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+@media (min-width: 1280px) and (min-height: 720px) {
+  #panel-game .level-disclaimer {
+    display: block;
+  }
+}
+
+/* --- Victory view (native <dialog>) --- */
+#panel-game .victory-view {
+  width: min(560px, 92vw);
+  max-width: 100%;
+  border: 1px solid var(--neon-cyan);
+  border-radius: 12px;
+  background: var(--bg-secondary);
+  color: var(--text-white);
+  padding: 2rem;
+}
+
+#panel-game .victory-view::backdrop {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+#panel-game .victory-view .victory-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: var(--text-gray);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+#panel-game .victory-view .victory-close:hover {
+  color: var(--text-white);
+}
+
+#panel-game .victory-view .victory-close:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 1px;
+}
+
+#panel-game .victory-view .victory-title {
+  color: var(--neon-cyan);
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+#panel-game .victory-view .victory-secret-value {
+  color: var(--neon-cyan);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+}
+
+#panel-game .victory-view .victory-user,
+#panel-game .victory-view .victory-model {
+  margin-top: 1rem;
+}
+
+#panel-game .victory-view .victory-user-message,
+#panel-game .victory-view .victory-model-response {
+  display: block;
+  margin-top: 0.35rem;
+  padding: 0.6rem 0.8rem;
+  background: var(--bg-primary);
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  word-break: break-word;
+}
+
+#panel-game .victory-view .victory-cta-container {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#panel-game .victory-view .victory-cta {
+  appearance: none;
+  background: var(--neon-cyan);
+  color: var(--bg-primary);
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#panel-game .victory-view .victory-cta:focus-visible {
+  outline: 2px solid var(--neon-purple);
+  outline-offset: 2px;
+}
+
+/* Celebration animation: total 1200ms, built from --neon-cyan/--neon-purple
+   box-shadow + transform/opacity (REQ-4 §2). Native <dialog> gets [open]. */
+#panel-game .victory-view[open] {
+  animation: victory-glow 1200ms ease-out;
+}
+
+@keyframes victory-glow {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+    box-shadow: 0 0 0 var(--neon-cyan);
+  }
+  60% {
+    transform: scale(1.02);
+    opacity: 1;
+    box-shadow: 0 0 60px var(--neon-purple);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 30px var(--neon-cyan);
+  }
+}
+
+/* --- Leaderboard --- */
+#panel-game .leaderboard-host {
+  margin-top: 1.5rem;
+}
+
+#panel-game .leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+#panel-game .leaderboard-table th,
+#panel-game .leaderboard-table td {
+  text-align: left;
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#panel-game .leaderboard-table th {
+  color: var(--neon-cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.75rem;
+}
+
+#panel-game .leaderboard-table td {
+  color: var(--text-white);
+}
+
+#panel-game .leaderboard-table tr.highlight {
+  background: rgba(112, 224, 255, 0.15);
+  transition: background 0.3s ease;
+}
+
+#panel-game .leaderboard-skeleton-row {
+  height: 1.2rem;
+  margin: 0.4rem 0;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--bg-secondary), rgba(255, 255, 255, 0.08), var(--bg-secondary));
+  background-size: 200% 100%;
+  animation: leaderboard-shimmer 1200ms ease-in-out infinite;
+}
+
+@keyframes leaderboard-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+#panel-game .leaderboard-error,
+#panel-game .leaderboard-empty {
+  color: var(--text-gray);
+  padding: 1rem 0;
+}
+
+#panel-game .leaderboard-retry,
+#panel-game .leaderboard-submit {
+  appearance: none;
+  background: var(--neon-cyan);
+  color: var(--bg-primary);
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.25rem;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#panel-game .leaderboard-submit:disabled {
+  background: #555;
+  color: var(--text-gray);
+  cursor: not-allowed;
+}
+
+#panel-game .leaderboard-retry:focus-visible,
+#panel-game .leaderboard-submit:focus-visible,
+#panel-game .leaderboard-handle:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 1px;
+}
+
+#panel-game .leaderboard-form-region {
+  margin-top: 1rem;
+}
+
+#panel-game .leaderboard-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+#panel-game .leaderboard-handle {
+  flex: 1 1 200px;
+  background: var(--bg-primary);
+  border: 1px solid rgba(112, 224, 255, 0.3);
+  border-radius: 6px;
+  color: var(--text-white);
+  padding: 0.6rem 0.8rem;
+  font-family: inherit;
+}
+
+#panel-game .leaderboard-validation,
+#panel-game .leaderboard-status {
+  flex-basis: 100%;
+  color: var(--text-gray);
+  font-size: 0.85rem;
+}
+
+/* --- Mobile: tablet and below (REQ-8 §1, §3) --- */
+@media (max-width: 767.98px) {
+  #panel-game .level-selector {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #panel-game .level-entry {
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Victory view stacks single-column and never exceeds the viewport */
+  #panel-game .victory-view {
+    width: 92vw;
+    max-width: 100%;
+    padding: 1.25rem;
+  }
+
+  #panel-game .victory-view .victory-cta-container {
+    flex-direction: column;
+  }
+
+  #panel-game .victory-view .victory-cta {
+    width: 100%;
+  }
+}
+
+/* --- Mobile: phone and below — hide per-entry text labels (REQ-8 §2) --- */
+@media (max-width: 479.98px) {
+  #panel-game .level-entry .level-state-label {
+    display: none;
+  }
+}
+
+/* --- Reduced motion (REQ-4 §3, REQ-9 §5) --- */
+@media (prefers-reduced-motion: reduce) {
+  #panel-game .victory-view[open],
+  #panel-game .victory-view.reduced-motion {
+    animation: none;
+  }
+
+  #panel-game .level-entry {
+    transition: none;
+  }
+
+  #panel-game .leaderboard-skeleton-row {
+    animation: none;
+  }
+}
+/* ===== /Gandalf Mode ===== */

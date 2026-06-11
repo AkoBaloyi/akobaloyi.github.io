@@ -297,3 +297,49 @@ Check Cloudflare Dashboard daily for:
 ---
 
 **Questions?** Check the main README.md or Cloudflare Workers documentation.
+
+---
+
+## Create LEADERBOARD KV namespace
+
+The anonymous leaderboard (entries + per-IP submit counters) uses a dedicated KV
+namespace bound as `LEADERBOARD`. This is a one-time manual step.
+
+### Create the production namespace
+
+```bash
+cd cloudflare-worker
+wrangler kv:namespace create LEADERBOARD
+```
+
+### Create the preview namespace (for `wrangler dev`)
+
+```bash
+wrangler kv:namespace create LEADERBOARD --preview
+```
+
+**Output example:**
+```
+🌀 Creating namespace with title "gemini-proxy-worker-LEADERBOARD"
+✨ Success!
+Add the following to your configuration file in your kv_namespaces array:
+{ binding = "LEADERBOARD", id = "abc123def456" }
+```
+
+### Update `wrangler.toml`
+
+Replace the placeholders in the `LEADERBOARD` block with the IDs returned above:
+
+- Replace `REPLACE_WITH_KV_ID_FROM_DASHBOARD` with the `id` from `wrangler kv:namespace create LEADERBOARD`.
+- Replace `REPLACE_WITH_PREVIEW_KV_ID` with the `preview_id` from `wrangler kv:namespace create LEADERBOARD --preview`.
+
+```toml
+[[kv_namespaces]]
+binding = "LEADERBOARD"
+id = "abc123def456"          # from wrangler kv:namespace create LEADERBOARD
+preview_id = "def456abc123"  # from wrangler kv:namespace create LEADERBOARD --preview
+```
+
+> **Important:** Do not change the binding name `LEADERBOARD`. The Worker code
+> references this namespace as `env.LEADERBOARD`, so renaming the binding will
+> break the leaderboard endpoints.

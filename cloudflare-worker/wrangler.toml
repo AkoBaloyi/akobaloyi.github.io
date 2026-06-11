@@ -7,6 +7,13 @@ compatibility_date = "2024-01-01"
 binding = "RATE_LIMIT"
 id = "018d54e3c8eb43bc868db3a840eaa5d2"
 
+# KV namespace for the anonymous leaderboard (entries + per-IP submit counters)
+# Created via: wrangler kv:namespace create LEADERBOARD
+[[kv_namespaces]]
+binding = "LEADERBOARD"
+id = "REPLACE_WITH_KV_ID_FROM_DASHBOARD"
+preview_id = "REPLACE_WITH_PREVIEW_KV_ID"
+
 # Environment variables (set via wrangler secret or dashboard)
 [vars]
 ALLOWED_ORIGIN = "https://akobaloyi.github.io"

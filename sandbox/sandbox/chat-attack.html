@@ -34,63 +34,98 @@
             <p>Try to break the AI assistant, steal its system prompt, or make it ignore its instructions</p>
         </div>
 
-        <div class="sandbox-layout">
-            <!-- Left: Chat Window -->
+        <div role="tablist" id="tablist" aria-label="Chat Attack mode" class="chat-tabs">
+            <button role="tab" id="tab-game" aria-selected="true" aria-controls="panel-game" class="chat-tab">Game</button>
+            <button role="tab" id="tab-freeplay" aria-selected="false" aria-controls="panel-freeplay" tabindex="-1" class="chat-tab">Free Play</button>
+        </div>
+
+        <!-- GAME panel (default active tab) -->
+        <section role="tabpanel" id="panel-game" aria-labelledby="tab-game">
+            <div class="game-toolbar">
+                <button id="resetProgressBtn" class="reset-btn-small">Reset progress</button>
+            </div>
+
+            <nav class="level-selector-host" aria-label="Levels"></nav>
+
+            <div class="level-disclaimer-host"></div>
+
             <div class="chat-panel">
                 <div class="chat-header">
                     <span class="status-dot"></span>
-                    <span>AI Assistant Active</span>
+                    <span>Level chat</span>
                 </div>
-                <div class="chat-messages" id="chatMessages">
-                    <div class="message ai-message">
-                        <strong>AI Assistant</strong>
-                        <p>Hello! I'm a helpful AI assistant. I can answer questions about science, history, and general knowledge. How can I help you today?</p>
-                    </div>
-                </div>
+                <div class="chat-messages" id="gameChatMessages"></div>
                 <div class="chat-input-container">
-                    <input type="text" id="userInput" placeholder="Type your attack here..." />
-                    <button id="sendBtn">Send</button>
-                    <button id="resetBtn" class="reset-btn-small">🔄 New Conversation</button>
-                    <button id="reportBtn" class="reset-btn-small report-btn-small">📊 Session Report</button>
+                    <input type="text" id="gameUserInput" placeholder="Type your attack here..." />
+                    <button id="gameSendBtn">Send</button>
                 </div>
             </div>
 
-            <!-- Right: System Info -->
-            <div class="info-panel">
-                <div class="info-section">
-                    <h3>🎯 Attack Difficulty</h3>
-                    <input type="range" id="difficulty" min="1" max="3" value="1" />
-                    <div class="difficulty-labels">
-                        <span>Easy</span>
-                        <span>Medium</span>
-                        <span>Hard</span>
+            <dialog class="victory-view" id="victoryView"></dialog>
+
+            <section class="leaderboard-host" id="leaderboardHost"></section>
+        </section>
+
+        <!-- FREE PLAY panel -->
+        <section role="tabpanel" id="panel-freeplay" aria-labelledby="tab-freeplay" hidden>
+            <div class="sandbox-layout">
+                <!-- Left: Chat Window -->
+                <div class="chat-panel">
+                    <div class="chat-header">
+                        <span class="status-dot"></span>
+                        <span>AI Assistant Active</span>
+                    </div>
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message ai-message">
+                            <strong>AI Assistant</strong>
+                            <p>Hello! I'm a helpful AI assistant. I can answer questions about science, history, and general knowledge. How can I help you today?</p>
+                        </div>
+                    </div>
+                    <div class="chat-input-container">
+                        <input type="text" id="userInput" placeholder="Type your attack here..." />
+                        <button id="sendBtn">Send</button>
+                        <button id="resetBtn" class="reset-btn-small">🔄 New Conversation</button>
+                        <button id="reportBtn" class="reset-btn-small report-btn-small">📊 Session Report</button>
                     </div>
                 </div>
 
-                <div class="info-section">
-                    <h3>🔒 System Prompt</h3>
-                    <div class="system-prompt" id="systemPrompt">
-                        <p class="hidden-text">??? HIDDEN ???</p>
-                        <p class="hint">Try to extract this with prompt injection</p>
+                <!-- Right: System Info -->
+                <div class="info-panel">
+                    <div class="info-section">
+                        <h3>🎯 Attack Difficulty</h3>
+                        <input type="range" id="difficulty" min="1" max="3" value="1" />
+                        <div class="difficulty-labels">
+                            <span>Easy</span>
+                            <span>Medium</span>
+                            <span>Hard</span>
+                        </div>
                     </div>
-                </div>
 
-                <div class="info-section">
-                    <h3>📊 Attack Score</h3>
-                    <div class="score-display">
-                        <div class="score-number" id="score">0</div>
-                        <div class="score-label">points</div>
+                    <div class="info-section">
+                        <h3>🔒 System Prompt</h3>
+                        <div class="system-prompt" id="systemPrompt">
+                            <p class="hidden-text">??? HIDDEN ???</p>
+                            <p class="hint">Try to extract this with prompt injection</p>
+                        </div>
                     </div>
-                    <div class="achievements" id="achievements"></div>
-                </div>
 
-                <div class="info-section">
-                    <h3>🧰 Technique Library</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-gray); margin-bottom: 0.75rem;">Click any technique to insert into the chat input.</p>
-                    <div class="technique-list" id="techniqueList"></div>
+                    <div class="info-section">
+                        <h3>📊 Attack Score</h3>
+                        <div class="score-display">
+                            <div class="score-number" id="score">0</div>
+                            <div class="score-label">points</div>
+                        </div>
+                        <div class="achievements" id="achievements"></div>
+                    </div>
+
+                    <div class="info-section">
+                        <h3>🧰 Technique Library</h3>
+                        <p style="font-size: 0.85rem; color: var(--text-gray); margin-bottom: 0.75rem;">Click any technique to insert into the chat input.</p>
+                        <div class="technique-list" id="techniqueList"></div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
     </section>
 
     <!-- Session Report Modal -->
@@ -103,6 +138,6 @@
 
     <!-- Load API config (gitignored, for local dev only) -->
     <script src="../config.js"></script>
-    <script src="../assets/js/chat-attack.js"></script>
+    <script type="module" src="../assets/js/chat-attack.js"></script>
 </body>
 </html>
