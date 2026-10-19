@@ -1226,6 +1226,12 @@ footer p {
     text-transform: uppercase;
 }
 
+.project-badge--proposed {
+    background: rgba(112, 224, 255, 0.12);
+    border-color: rgba(112, 224, 255, 0.35);
+    color: var(--accent-cyan);
+}
+
 .project-result {
     margin: 1.25rem 0;
     padding: 0.85rem 1rem;
@@ -1361,6 +1367,184 @@ footer p {
     transform: scale(1.05);
 }
 
+/* ===== Positioning Statement ===== */
+.positioning-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 2.5rem auto 0;
+    text-align: center;
+}
+
+.positioning-meta dt {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.positioning-meta dd {
+    margin: 0;
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+/* ===== Portfolio & Learning Roadmap ===== */
+.roadmap-subtitle {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin: 4rem 0 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(108, 99, 255, 0.25);
+}
+
+#roadmap .projects-tagline {
+    margin-bottom: 1.5rem;
+}
+
+.roadmap-question {
+    max-width: 900px;
+    margin: 0 auto 2.5rem;
+    padding: 1.75rem 2rem;
+    background: rgba(108, 99, 255, 0.07);
+    border-left: 3px solid var(--accent-violet);
+    border-radius: 4px;
+}
+
+.roadmap-question p {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--text-primary);
+}
+
+.roadmap-source {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.roadmap-source p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.roadmap-caveat {
+    padding-left: 1rem;
+    border-left: 2px solid rgba(160, 160, 160, 0.35);
+}
+
+.roadmap-card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    line-height: 1.35;
+}
+
+.roadmap-eyebrow {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.roadmap-card {
+    background: var(--bg-primary);
+}
+
+.roadmap-card p {
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+}
+
+.seed-card {
+    border: 1px dashed rgba(112, 224, 255, 0.35);
+}
+
+.seed-card:hover {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 20px rgba(112, 224, 255, 0.2);
+}
+
+.seed-card h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--accent-violet);
+    margin-bottom: 1rem;
+}
+
+.seed-card strong {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+#roadmap .project-content p {
+    margin-bottom: 1rem;
+}
+
+.seed-steps {
+    margin: 0 0 1.5rem 1.25rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.seed-steps li {
+    margin-bottom: 0.75rem;
+}
+
+.seed-limitation {
+    padding-left: 1rem;
+    border-left: 2px solid rgba(160, 160, 160, 0.35);
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+#roadmap a,
+#positioning a {
+    color: var(--accent-cyan);
+    border-bottom: 1px solid rgba(112, 224, 255, 0.3);
+    transition: var(--transition);
+}
+
+#roadmap a:hover,
+#positioning a:hover {
+    color: var(--accent-violet);
+    border-bottom-color: var(--accent-violet);
+}
+
+#roadmap a:focus-visible,
+#positioning a:focus-visible,
+#motion .motion-text a:focus-visible {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 3px;
+}
+
+/* Cross-link from In Motion back up to the roadmap */
+#motion .motion-text a {
+    color: var(--accent-cyan);
+    border-bottom: 1px solid rgba(112, 224, 255, 0.3);
+    transition: var(--transition);
+}
+
+#motion .motion-text a:hover {
+    color: var(--accent-violet);
+    border-bottom-color: var(--accent-violet);
+}
+
 /* ===== Fade-in Animation ===== */
 .fade-in {
     opacity: 0;
@@ -1371,6 +1555,57 @@ footer p {
 .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* ===== Reduced Motion ===== */
+/* Must stay AFTER the Fade-in Animation block: the .fade-in override below wins
+   on source order, not specificity. */
+@media (prefers-reduced-motion: reduce) {
+
+    /* Collapse durations instead of removing animations. `animation: none` would
+       discard the end state of every fill-forwards animation on the page
+       (.circuit-path's drawPath, .log-line's logAppear, .hero-subtitle and
+       .cta-button's fadeInUp) and leave that content permanently invisible.
+       Zeroing the delay also stops the footer log lines waiting out their
+       0.5s/1s/1.5s stagger. Infinite animations (spinner, pulse, shimmer, caret
+       blink) stop after one near-instant iteration, each at a visible keyframe. */
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-delay: 0ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    /* These start hidden as a CSS default and are revealed by script.js, not by an
+       animation end state, so they need forcing to the revealed end state.
+       Deliberately a named list, not a blanket reset: .personal-overlay and
+       .project-card::before are hover reveals that must stay hidden, and
+       .circuit-bg needs its transform to stay centred. */
+    .fade-in {
+        opacity: 1;
+        transform: none;
+    }
+
+    .hero h1 {
+        opacity: 1;
+    }
+
+    .log-line {
+        opacity: 1;
+        transform: none;
+    }
+
+    /* script.js sets this element's opacity inline every 4s, so only !important
+       can keep the quote legible once the cross-fade is gone. */
+    .rotating-quote {
+        opacity: 1 !important;
+    }
 }
 
 /* ===== Responsive Design ===== */
@@ -1388,8 +1623,19 @@ footer p {
         background: rgba(14, 14, 16, 0.98);
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        /* Auto margins keep the items centred when they fit; flex-start plus
+           overflow lets them scroll instead of clipping on short viewports. */
+        justify-content: flex-start;
+        overflow-y: auto;
         transition: var(--transition);
+    }
+
+    .nav-menu li:first-child {
+        margin-top: auto;
+    }
+
+    .nav-menu li:last-child {
+        margin-bottom: auto;
     }
 
     .nav-menu.active {
@@ -1452,4 +1698,9 @@ footer p {
     }
     .cert-name { font-size: 1.1rem; }
     .skill-tag { font-size: 0.8rem; }
+
+    /* Roadmap: tighten sub-headings and the featured question */
+    .roadmap-subtitle { font-size: 1.25rem; margin-top: 3rem; }
+    .roadmap-question { padding: 1.25rem; }
+    .seed-card h4 { font-size: 1.2rem; }
 }

@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ako Baloyi, Co-Founder of Adigital and final-year BEngSc candidate at Wits University. Software engineer and Fortinet-certified cybersecurity practitioner building production systems in Go, Python, C++, and JavaScript. Based in Johannesburg, targeting 2027 graduate programmes.">
+    <meta name="description" content="Ako Baloyi, Co-Founder of Adigital and BEngSc candidate at Wits University. Software engineer and Fortinet-certified cybersecurity practitioner working towards AI/ML engineering for cyber defence. Includes a portfolio and learning roadmap: threat detection project ideas, skills to grow, and 30-day and 6-month goals. Based in Johannesburg, open to graduate programmes.">
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://akobaloyi.github.io" />
     <meta property="og:title" content="Ako Baloyi · Co-Founder, Adigital · Software Engineer & Cybersecurity" />
-    <meta property="og:description" content="Final-year BEngSc student at Wits and Co-Founder of Adigital. I work across bare-metal AVR Assembly, AWS cloud apps, and live web deployments. Looking for a 2027 graduate programme in software engineering or cybersecurity." />
+    <meta property="og:description" content="BEngSc student at Wits and Co-Founder of Adigital. I work across bare-metal AVR Assembly, AWS cloud apps, and live web deployments. Open to a graduate programme in software engineering or cybersecurity." />
     <meta property="og:image" content="https://akobaloyi.github.io/assets/og-banner.png" />
     <meta property="og:image:alt" content="Ako Baloyi, Software Engineer and Cybersecurity" />
     <meta property="og:image:width" content="1200" />
@@ -20,7 +20,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://akobaloyi.github.io" />
     <meta name="twitter:title" content="Ako Baloyi · Co-Founder, Adigital · Software Engineer & Cybersecurity" />
-    <meta name="twitter:description" content="Final-year BEngSc student at Wits and Co-Founder of Adigital. Embedded systems, cloud architecture, cybersecurity. Looking for a 2027 graduate programme." />
+    <meta name="twitter:description" content="BEngSc student at Wits and Co-Founder of Adigital. Embedded systems, cloud architecture, cybersecurity. Open to a graduate programme." />
     <meta name="twitter:image" content="https://akobaloyi.github.io/assets/og-banner.png" />
     <title>Ako Baloyi · Co-Founder, Adigital · Software Engineer &amp; Cybersecurity</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='80' fill='%236C63FF'>A</text></svg>">
@@ -29,6 +29,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="canonical" href="https://akobaloyi.github.io" />
     <link rel="stylesheet" href="styles.css">
+    <noscript>
+        <style>
+            .fade-in {
+                opacity: 1;
+                transform: none;
+            }
+
+            .hero h1 {
+                opacity: 1;
+            }
+
+            /* Without JS the loading screen is never dismissed, so keep it out of the way. */
+            #loading-screen {
+                display: none;
+            }
+        </style>
+    </noscript>
 </head>
 <body>
     <!-- Loading Screen -->
@@ -54,6 +71,7 @@
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#security">Skills</a></li>
                 <li><a href="#about">About</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
                 <li><a href="sandbox/index.html" class="sandbox-link">🔓 AI Sandbox</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -65,8 +83,30 @@
         <canvas id="particle-canvas"></canvas>
         <div class="hero-content">
             <h1 class="glitch" data-text="Engineering Systems. Securing Networks. Shipping Products.">Engineering Systems. Securing Networks. Shipping Products.</h1>
-            <p class="hero-subtitle">I am a final-year BEngSc candidate at Wits University and Co-Founder of Adigital, a live digital agency delivering production systems for active business clients.</p>
+            <p class="hero-subtitle">I am a BEngSc candidate at Wits University and Co-Founder of Adigital, a live digital agency delivering production systems for active business clients.</p>
             <a href="mailto:Akobaloyi01@gmail.com" class="cta-button">Get In Touch</a>
+        </div>
+    </section>
+
+    <!-- Mini Bio / Positioning Statement -->
+    <section id="positioning" class="section section-dark">
+        <div class="container">
+            <h2 class="section-title fade-in">Mini Bio</h2>
+            <p class="about-text fade-in">I'm Ako Baloyi, a BEngSc Digital Arts student at Wits (software engineering, AI and cybersecurity) and co-founder of Adigital, taking client systems from a cold start to live production. My interest sits in cybersecurity and threat detection: how a security team separates a real threat from ordinary noise across logs, network traffic and cloud activity. I am working towards a role as an AI/ML engineer specialising in cyber defence, building detection systems that give an analyst enough evidence to decide what to do next.</p>
+            <dl class="positioning-meta fade-in">
+                <div>
+                    <dt>Target domain</dt>
+                    <dd>Cybersecurity and threat detection, with a focus on security operations and cloud security</dd>
+                </div>
+                <div>
+                    <dt>Target role</dt>
+                    <dd>AI/ML engineer specialising in cyber defence</dd>
+                </div>
+                <div>
+                    <dt>Currently</dt>
+                    <dd>Studying at Wits and taking Data and AI, alongside client work at Adigital</dd>
+                </div>
+            </dl>
         </div>
     </section>
 
@@ -299,9 +339,107 @@
         <div class="container">
             <h2 class="section-title fade-in">Education</h2>
             <h3 class="education-heading fade-in">BEngSc in Digital Arts (Software Engineering, AI &amp; Cybersecurity)</h3>
-            <p class="edu-meta fade-in">Wits University · Expected completion: Semester 1, 2027</p>
-            <p class="about-text fade-in">I have one module left to finish in the first semester of 2027. The degree itself spans software engineering, AI, and cybersecurity, which is intentional. I wanted a base that lets me work across disciplines instead of getting stuck inside one.</p>
-            <p class="about-text fade-in">Most of what I've actually shipped, though, has happened outside the classroom. I've spent the last stretch of my degree co-running Adigital, handling live deployments and client work alongside coursework. By the time I walk into a 2027 graduate programme, I'll already know what production pressure feels like.</p>
+            <p class="edu-meta fade-in">Wits University · Johannesburg, South Africa</p>
+            <p class="about-text fade-in">The degree spans software engineering, AI, and cybersecurity, which is intentional. I wanted a base that lets me work across disciplines instead of getting stuck inside one.</p>
+            <p class="about-text fade-in">Most of what I've actually shipped, though, has happened outside the classroom. I've spent the last stretch of my degree co-running Adigital, handling live deployments and client work alongside coursework. By the time I walk into a graduate programme, I'll already know what production pressure feels like.</p>
+        </div>
+    </section>
+
+    <!-- Portfolio & Learning Roadmap -->
+    <section id="roadmap" class="section section-dark">
+        <div class="container">
+            <h2 class="section-title fade-in">Portfolio &amp; Learning Roadmap</h2>
+            <p class="about-text fade-in">The sections above are what I have shipped. This one is the plan: the question I am chasing, the projects I intend to build next, the two skills I am deliberately growing, and the dates I am holding myself to.</p>
+
+            <h3 class="roadmap-subtitle fade-in">The question I am chasing</h3>
+            <blockquote class="roadmap-question fade-in">
+                <p>How can AI help a security team recognise a real threat in a large amount of system activity, and give the team enough evidence to decide what to do next?</p>
+            </blockquote>
+            <div class="roadmap-source fade-in">
+                <h4 class="roadmap-card-title">Why this question, and why here</h4>
+                <p>The City of Johannesburg's security operations centre, its managed security partner at the CSIR Information and Cyber Security Centre, and Microsoft engineering teams worked together to embed Microsoft Security Copilot into the city's security workflows. <a href="https://www.microsoft.com/en/customers/story/26144-city-of-johannesburg-microsoft-security-copilot" target="_blank" rel="noopener noreferrer" aria-label="Microsoft's customer story on the City of Johannesburg and Security Copilot (opens in a new tab)">Microsoft's customer story on the City of Johannesburg and Security Copilot</a> describes high incident volumes, limited specialist capacity and fragmented visibility, and reports that the tooling helps consolidate security signals, review alerts and support investigations, with up to a 95% reduction in false positives (Microsoft Customer Stories, 16 April 2026).</p>
+                <p class="roadmap-caveat">Those numbers are vendor-reported. Before treating them as evidence, I would want to know how false positives were measured and whether genuine threats were missed in the same period, which is what the projects below are meant to teach me.</p>
+            </div>
+
+            <h3 class="roadmap-subtitle fade-in">Seed Project Ideas</h3>
+            <p class="projects-tagline fade-in">Proposed work, not built yet. The work I have actually shipped is under <a href="#projects">Things I've Built</a>.</p>
+            <div class="projects-grid">
+                <div class="project-card seed-card fade-in">
+                    <div class="project-content">
+                        <span class="project-badge project-badge--proposed">Proposed · Not Built Yet</span>
+                        <h4>Seed project 1: Network threat detection experiment</h4>
+                        <p><strong>Project question:</strong> How well can a simple model identify labelled attack traffic, and what do its false alarms and missed attacks reveal about its usefulness?</p>
+                        <p><strong>Data:</strong> CIC-IDS2017, the intrusion detection evaluation dataset published by the Canadian Institute for Cybersecurity at the University of New Brunswick. It holds labelled network flows covering benign activity and several attack types. See the <a href="https://www.unb.ca/cic/datasets/ids-2017.html" target="_blank" rel="noopener noreferrer" aria-label="CIC-IDS2017 dataset page at the Canadian Institute for Cybersecurity (opens in a new tab)">CIC-IDS2017 dataset page at the Canadian Institute for Cybersecurity</a>.</p>
+                        <p><strong>Scope:</strong> An offline learning experiment on public data. Nothing here runs against a live network.</p>
+                        <p><strong>Method:</strong></p>
+                        <ol class="seed-steps">
+                            <li>Inspect and prepare the data in Python with pandas: check the labels, the missing and invalid values, the duplicate records and the balance between benign and attack traffic, and write down every cleaning decision.</li>
+                            <li>Set up a fair comparison before tuning anything: hold the test data back first, keep related or duplicate records from leaking across the split, check whether identifiers are revealing the dataset setup rather than attack behaviour, and fit preprocessing on the training data only.</li>
+                            <li>Build a simple baseline: compare a majority-class baseline against a decision tree, and only add a random forest if there is time to evaluate the difference properly.</li>
+                            <li>Examine the mistakes: precision, recall, F1-score and a confusion matrix, which attacks get missed, which benign events get flagged, and where the data allows it, results broken down by attack type.</li>
+                        </ol>
+                        <p class="project-result">Outcome: a reproducible analysis that explains its own errors and limitations. Deliverable: a notebook plus a short findings report.</p>
+                        <p class="seed-limitation">Limitation I am not going to hide: doing well on this dataset would be evidence about the experiment. It would not show that the model can protect a live network or recognise an attack it has not seen before.</p>
+                        <div class="project-tags">
+                            <span>Python</span>
+                            <span>pandas</span>
+                            <span>CIC-IDS2017</span>
+                            <span>Precision / Recall</span>
+                            <span>Offline experiment</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Seed project 2 addresses Phase 1 question 1: detection quality (showing AI finds more genuine threats, not just fewer alerts). -->
+                <div class="project-card seed-card fade-in">
+                    <div class="project-content">
+                        <span class="project-badge project-badge--proposed">Proposed · Follows Project 1</span>
+                        <h4>Seed project 2: What the alert actually tells the analyst</h4>
+                        <p><strong>Project question:</strong> How can a team show that AI is finding more genuine threats rather than simply producing fewer alerts?</p>
+                        <p><strong>Approach:</strong> Take the events project 1 flagged and generate a short "why was this flagged" summary for each one: the few features that moved the decision, the records it resembles, and whether the label turned out to be correct. Then read those summaries against the known labels and judge whether they would give an analyst a useful starting point.</p>
+                        <p><strong>Outcome:</strong> a short written assessment of whether the evidence is good enough to act on, with the cases where it misleads written up next to the cases where it works.</p>
+                        <p class="project-result">Depends on project 1: this needs project 1's flagged events and its error analysis as input, so it is the step after, not a parallel idea.</p>
+                        <div class="project-tags">
+                            <span>Follow-on</span>
+                            <span>Error analysis</span>
+                            <span>Analyst evidence</span>
+                            <span>Detection quality</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="roadmap-subtitle fade-in">Skills to Grow</h3>
+            <div class="projects-grid">
+                <div class="skill-group roadmap-card fade-in">
+                    <p class="roadmap-eyebrow">Technical</p>
+                    <h4 class="roadmap-card-title">Evaluating a classification model in Python</h4>
+                    <p>Python is already on my skills list above. What is not on it yet is being able to defend an evaluation: reading precision and recall properly, so I can say how often flagged traffic is actually malicious and how much of the labelled attack traffic the model found. Careful data preparation is part of the same skill, checking the labels and splitting the data before I trust any score.</p>
+                    <p class="project-result">Why it matters: an AI/ML engineer in cyber defence is judged on the attacks a system misses and the false alarms it creates, not on a single accuracy number.</p>
+                </div>
+                <!-- Soft skill: authored for this submission rather than taken from my Phase 1 notes. Safe to swap this whole card for a different soft skill. -->
+                <div class="skill-group roadmap-card fade-in">
+                    <p class="roadmap-eyebrow">Soft</p>
+                    <h4 class="roadmap-card-title">Communicating findings to the people who act on them</h4>
+                    <p>Turning model output into evidence someone else can use, in writing and in conversation: what the system flagged, why, how sure it is, and what it cannot tell you. A detection an analyst cannot interpret does not help the analyst.</p>
+                    <p class="project-result">Why it matters: an AI/ML engineer specialising in cyber defence is measured by whether an analyst can act on what the model flags, not by whether the model scored well in isolation.</p>
+                </div>
+            </div>
+
+            <h3 class="roadmap-subtitle fade-in">Goals</h3>
+            <div class="projects-grid">
+                <div class="skill-group roadmap-card fade-in">
+                    <p class="roadmap-eyebrow">Next 30 days</p>
+                    <h4 class="roadmap-card-title">Get seed project 1 to an honest first baseline</h4>
+                    <p>Obtain the CIC-IDS2017 data, document the labels, the class balance and every cleaning decision, then establish the majority-class baseline and produce a first confusion matrix, written up in a short notebook.</p>
+                    <p class="project-result">Linked to seed project 1 and to the technical skill above: this is the step where precision and recall stop being definitions and become numbers I have to explain.</p>
+                </div>
+                <div class="skill-group roadmap-card fade-in">
+                    <p class="roadmap-eyebrow">Next 6 months</p>
+                    <h4 class="roadmap-card-title">Finish the experiment and publish it</h4>
+                    <p>Complete seed project 1 end to end: a leakage-safe train and test split, the decision tree compared against the baseline, error analysis broken down by attack type, and a published notebook with a short findings report.</p>
+                    <p class="project-result">Linked to seed project 1 and to the technical skill above: the findings report gets linked from this page once it exists, which is also where the communication skill gets tested.</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -322,11 +460,11 @@
             <div class="motion-content fade-in">
                 <h3>Currently Learning and Building</h3>
                 <p class="motion-text">
-                    Right now, I'm deep into cybersecurity and how it connects with machine learning. I'm fascinated by how we can automate trust, intelligence, and protection through thoughtful design and systems thinking. My focus is on understanding how cloud technologies and AI can work together to create solutions that are both resilient and adaptive. Security isn't just about defense anymore, it's about building systems that think ahead.
+                    Right now the work is cybersecurity and machine learning, and specifically detection: what a security team can actually conclude from logs, network traffic and cloud activity, and where a model helps or gets in the way. The plan behind that, including the projects, the skills and the dates, is in the <a href="#roadmap">Portfolio &amp; Learning Roadmap</a> above.
                 </p>
                 <div class="motion-status">
                     <div class="status-indicator"></div>
-                    <span style="font-family: 'Courier New', monospace; color: var(--accent-cyan);">// currently: cybersecurity × ML</span>
+                    <span style="font-family: 'Courier New', monospace; color: var(--accent-cyan);">// currently: threat detection × ML</span>
                 </div>
             </div>
             

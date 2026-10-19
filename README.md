@@ -1,6 +1,6 @@
 # Ako Baloyi · Portfolio
 
-Personal portfolio for Ako Baloyi, final-year BEngSc student at Wits University and Co-Founder of Adigital.
+Personal portfolio for Ako Baloyi, BEngSc student at Wits University and Co-Founder of Adigital.
 
 Live at [akobaloyi.github.io](https://akobaloyi.github.io).
 
